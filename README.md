@@ -1,7 +1,7 @@
 # CurrencyApp
 
 To run: `npm dev`
-but make to install all the dependencies beforehand by executing `
+but make sure to install all the dependencies beforehand by executing `
 npm install`.
 
 To build the app: `npm build`.
