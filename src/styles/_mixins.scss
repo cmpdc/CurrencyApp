@@ -1,0 +1,23 @@
+@mixin elemDimension($dimensionA, $dimensionB: "") {
+    @if $dimensionB !="" {
+        width: $dimensionA;
+        height: $dimensionB;
+    }
+
+    @else {
+        width: $dimensionA;
+        height: $dimensionA;
+    }
+}
+
+@mixin minScreenSize($value) {
+    @media (min-width: $value) {
+        @content;
+    }
+}
+
+@mixin maxScreenSize($value) {
+    @media (max-width: $value) {
+        @content;
+    }
+}

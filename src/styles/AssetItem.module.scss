@@ -1,0 +1,87 @@
+@import "_mixins";
+
+.list-group-item {
+    --borderColor: rgba(0, 0, 0, 0.125);
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+
+    &:not(:first-child):not(:last-child):not(:nth-last-child(2)) {
+        border-bottom: none;
+    }
+
+    &:only-child {
+        border-radius: 5px !important;
+    }
+
+    &:first-child {
+        &:not(:only-child) {
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+        }
+    }
+
+    &:last-child {
+        &:not(:nth-child(2)) {
+            border-top: none;
+        }
+
+        &:not(:only-child) {
+            border-radius: 0 0 5px 5px;
+        }
+    }
+}
+
+.list-inner {
+    position: relative;
+    user-select: none;
+}
+
+.badge {
+    color: var(--white);
+    font-size: 75%;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    padding: 0.25em 0.4em;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    user-select: all;
+
+    &:before {
+        content: "";
+        @include elemDimension(100%);
+        border-radius: 5px;
+        position: absolute;
+        inset: 0 0 auto auto;
+        pointer-events: none;
+        z-index: -1;
+    }
+}
+
+.badge-hasButton {
+    margin: 0 1rem 0 0;
+}
+
+.badge-income {
+    &::before {
+        background-color: var(--green);
+    }
+}
+
+.badge-expense {
+    &::before {
+        background-color: var(--red);
+    }
+}
+
+.button {
+    cursor: pointer;
+}

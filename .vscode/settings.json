@@ -1,0 +1,28 @@
+{
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always",
+        "source.organizeImports": "always"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "scss",
+        "css"
+    ],
+    "files.autoSave": "onFocusChange",
+    "liveSassCompile.settings.watchOnLaunch": false,
+    "prettier.resolveGlobalModules": false,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
