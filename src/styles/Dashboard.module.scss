@@ -9,7 +9,8 @@ $container-max-widths: (sm: 540px,
 .container {
     width: 100%;
     padding: 0 15px;
-    margin: 0 auto;
+    margin: var(--navbarHeight) auto 0 auto;
+    position: relative;
     display: flex;
     flex-flow: column;
 
@@ -42,6 +43,10 @@ $container-max-widths: (sm: 540px,
     display: flex;
     flex-flow: column;
     gap: 10px;
+
+    &:first-child {
+        margin-top: 5px;
+    }
 }
 
 .assets-row {

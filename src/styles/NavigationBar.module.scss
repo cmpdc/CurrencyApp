@@ -1,0 +1,75 @@
+@import "_mixins";
+
+.nav {
+    @include elemDimension(100%, var(--navbarHeight));
+    background-color: var(--navBackground);
+    position: fixed;
+    inset: 0 0 auto auto;
+    backdrop-filter: saturate(40%) blur(25px);
+    z-index: 999;
+}
+
+.navInner {
+    @include elemDimension(100%);
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    @include minScreenSize(576px) {
+        max-width: 540px;
+    }
+
+    @include minScreenSize(768px) {
+        max-width: 720px;
+    }
+
+    @include minScreenSize(992px) {
+        max-width: 960px;
+    }
+
+    @include minScreenSize(1200px) {
+        max-width: 1140px;
+    }
+}
+
+.navItem {
+    height: 40px;
+    color: var(--white);
+    border-radius: 5px;
+    padding: 10px 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    line-height: 1.2;
+    user-select: none;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:before {
+        content: "";
+        @include elemDimension(100%);
+        background-color: var(--gray);
+        position: absolute;
+        inset: 0 0 auto auto;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 100ms linear;
+        z-index: -1;
+    }
+}
+
+.navItemClicked {
+    &:before {
+        opacity: 0.8;
+    }
+}
+
+.navItemHover {
+    &:before {
+        opacity: 0.3;
+    }
+}

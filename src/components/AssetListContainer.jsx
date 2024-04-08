@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { recentCounter } from "../utils/constants";
-import AssetListContainer from "./AssetList";
+import AssetListInner from "./AssetListInner";
 
-const DataList = ({ type, isShowRecent }) => {
+const AssetListContainer = ({ type, isShowRecent }) => {
 	const { data } = useContext(AppContext);
 
 	const filteredItems = useMemo(() => {
@@ -26,9 +26,9 @@ const DataList = ({ type, isShowRecent }) => {
 			{type !== "all" && !isShowRecent && (
 				<input type="text" className="form-control mb-2 mr-sm-2" placeholder="Type to search..." onChange={handleChange} />
 			)}
-			<AssetListContainer assets={displayItems} isShowRecent={isShowRecent} />
+			<AssetListInner assets={displayItems} isShowRecent={isShowRecent} />
 		</>
 	);
 };
 
-export default DataList;
+export default AssetListContainer;

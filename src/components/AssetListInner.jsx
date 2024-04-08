@@ -1,11 +1,11 @@
-import styles from "../styles/AssetList.module.scss";
+import styles from "../styles/AssetListInner.module.scss";
 import { formatCost } from "../utils/formatCost";
 import AssetItem from "./AssetItem";
 
-const AssetListContainer = ({ assets, isShowRecent }) => {
+const AssetListInner = ({ assets, isShowRecent }) => {
 	return (
 		<ul className={styles["list-group"]}>
-			{assets.map((asset) => (
+			{assets?.map((asset) => (
 				<AssetItem
 					key={asset.id}
 					id={asset.id}
@@ -19,4 +19,4 @@ const AssetListContainer = ({ assets, isShowRecent }) => {
 	);
 };
 
-export default AssetListContainer;
+export default AssetListInner;
