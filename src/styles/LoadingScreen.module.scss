@@ -1,0 +1,17 @@
+@import "_mixins";
+
+.loadingScreen {
+    @include elemDimension(500px);
+    position: absolute;
+    inset: 50% auto auto 50%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+}
+
+.title {
+    font-family: "Ubuntu", sans-serif;
+}

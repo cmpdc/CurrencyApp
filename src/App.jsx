@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { isAuthenticated } from "./auth/isAuthenticated";
+import { LoadingProvider } from "./context/LoadingContext";
 import { Dashboard } from "./pages/Dashboard";
 import { NotFoundPage } from "./pages/NotFound";
 
@@ -25,13 +26,21 @@ const router = createBrowserRouter([
 		element: isAuthenticated() ? <Dashboard type={"account"} /> : <Navigate to={"/account"} />,
 	},
 	{
+		path: "/logout",
+		element: isAuthenticated() ? <Dashboard type={"logout"} /> : <Navigate to={"/account"} />,
+	},
+	{
 		path: "*",
 		element: <NotFoundPage />,
 	},
 ]);
 
 const App = () => {
-	return <RouterProvider router={router} />;
+	return (
+		<LoadingProvider>
+			<RouterProvider router={router} />
+		</LoadingProvider>
+	);
 };
 
 export default App;

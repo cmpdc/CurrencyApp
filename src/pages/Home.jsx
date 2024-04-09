@@ -17,7 +17,7 @@ export const Home = () => {
 	return (
 		<>
 			<section className={classNames(styles["container-section"])}>
-				<h1>Home</h1>
+				<h1>Dashboard</h1>
 				<div className={styles["assets-row"]}>
 					<div className={classNames([styles["asset-container"], styles["total"]])}>
 						<Balance />

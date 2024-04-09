@@ -1,4 +1,6 @@
 @use "_variables"as v;
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import "_mixins";
 
 :root {
 
@@ -19,8 +21,7 @@
 }
 
 body {
-    --navbarHeight: 60px;
-    --navBackground: rgba(22, 22, 23, 0.75);
+    --sidebarWidth: 180px;
     color: v.$body-color;
     text-align: left;
     font-family: v.$font-family-base;
@@ -28,7 +29,12 @@ body {
     background-color: v.$body-bg;
     line-height: v.$line-height-base;
     margin: 0;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @include maxScreenSize(1200px) {
+        --sidebarWidth: 70px;
+    }
 }
 
 h1,
@@ -74,4 +80,6 @@ ul {
 
 #root {
     position: relative;
+    display: flex;
+    flex-flow: row;
 }

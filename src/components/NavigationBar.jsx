@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { FaExchangeAlt, FaSignOutAlt } from "react-icons/fa";
+import { GiTwoCoins } from "react-icons/gi";
+import { HiCog } from "react-icons/hi";
+import { TiHome } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/NavigationBar.module.scss";
 import { classNames } from "../utils/classNames";
 
 const links = [
-	{ link: "/dashboard", name: "Home" },
-	{ link: "/currency", name: "Currency" },
-	{ link: "/assets", name: "Assets" },
-	{ link: "/account", name: "Settings" },
+	{ link: "/dashboard", name: "Home", icon: <TiHome /> },
+	{ link: "/currency", name: "Currency", icon: <FaExchangeAlt /> },
+	{ link: "/assets", name: "Assets", icon: <GiTwoCoins /> },
+	{ link: "/account", name: "Settings", icon: <HiCog /> },
+	{ link: "/logout", name: "Logout", icon: <FaSignOutAlt /> },
 ];
 
 export const NavigationBar = () => {
@@ -29,8 +34,8 @@ export const NavigationBar = () => {
 
 	return (
 		<>
-			<nav className={styles["nav"]}>
-				<ul className={styles["navInner"]}>
+			<aside className={styles["sidebar"]}>
+				<ul className={styles["sidebarInner"]}>
 					{links.map((itemElem, itemIndex) => {
 						return (
 							<li
@@ -38,17 +43,19 @@ export const NavigationBar = () => {
 								className={classNames(styles["navItem"], {
 									[[styles["navItemClicked"]]]: itemElem.link === activeLink,
 									[[styles["navItemHover"]]]: hoveredItem === itemIndex && itemElem.link !== activeLink,
+									[[styles["navLogout"]]]: itemElem.name === "Logout",
 								})}
 								onClick={() => handleClick(itemElem.link)}
 								onMouseEnter={() => handleMouseEnter(itemIndex)}
 								onMouseLeave={handleMouseLeave}
 							>
-								{itemElem.name}
+								{itemElem.icon && <span className={styles["icon"]}>{itemElem.icon}</span>}
+								<h3>{itemElem.name}</h3>
 							</li>
 						);
 					})}
 				</ul>
-			</nav>
+			</aside>
 		</>
 	);
 };
