@@ -11,7 +11,7 @@ import { AssetsTab } from "./tabs/AssetsTab";
 import { CurrencyTab } from "./tabs/CurrencyTab";
 import { LogoutTab } from "./tabs/LogoutTab";
 
-const timeoutInterval = 1500;
+const timeoutInterval = 1200;
 
 export const Dashboard = ({ type }) => {
 	const { setIsLoading, isLoading } = useLoading();
@@ -46,13 +46,7 @@ export const Dashboard = ({ type }) => {
 		<>
 			<NavigationBar />
 			<div className={styles["container"]}>
-				{isLoading ? (
-					<>
-						<LoadingScreen />
-					</>
-				) : (
-					<>{renderType(type)}</>
-				)}
+				{isLoading ? location.pathname === "/logout" ? <LoadingScreen text={"Logging out..."} /> : <LoadingScreen /> : renderType(type)}
 			</div>
 		</>
 	);

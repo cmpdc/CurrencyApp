@@ -8,27 +8,27 @@ $container-max-widths: (sm: 540px,
 .container {
     width: 100%;
     min-height: 100vh;
-    padding: 0 15px;
+    padding: 0 30px;
     margin: 0 auto 0 calc(var(--sidebarWidth));
     position: relative;
     display: flex;
     flex-flow: column;
 
-    @include minScreenSize(576px) {
-        max-width: 540px;
-    }
+    // @include minScreenSize(576px) {
+    //     max-width: 540px;
+    // }
 
-    @include minScreenSize(768px) {
-        max-width: 720px;
-    }
+    // @include minScreenSize(768px) {
+    //     max-width: 720px;
+    // }
 
-    @include minScreenSize(992px) {
-        max-width: 960px;
-    }
+    // @include minScreenSize(992px) {
+    //     max-width: 960px;
+    // }
 
-    @include minScreenSize(1200px) {
-        max-width: 1140px;
-    }
+    // @include minScreenSize(1200px) {
+    //     max-width: 1140px;
+    // }
 
     h1,
     h3 {

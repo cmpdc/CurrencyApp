@@ -6,17 +6,28 @@
     position: fixed;
     backdrop-filter: saturate(40%) blur(25px);
     z-index: 999;
+    --firstItemMargin: 65px;
+    --sidebarInnerPaddingTop: 20px;
 }
 
 .sidebarInner {
     @include elemDimension(100%);
     margin: 0 auto;
-    padding: 20px 15px 0 15px;
+    padding: var(--sidebarInnerPaddingTop) 15px 0 15px;
     position: relative;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
     gap: 15px;
+
+    &:before {
+        content: "";
+        @include elemDimension(1px, 90%);
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+        position: absolute;
+        inset: 50% 0 auto auto;
+        transform: translate(0, -50%);
+    }
 }
 
 .navItem {
@@ -35,7 +46,7 @@
     transition: color 100ms linear;
 
     &:first-child {
-        margin-top: 65px;
+        margin-top: var(--firstItemMargin);
     }
 
     &:before {
