@@ -6,35 +6,25 @@ $container-max-widths: (sm: 540px,
     xl: 1140px) !default;
 
 .container {
-    width: 100%;
+    @include elemDimension(calc(100% - var(--sidebarWidth)), 100vh);
     min-height: 100vh;
-    padding: 0 30px;
-    margin: 0 auto 0 calc(var(--sidebarWidth));
-    position: relative;
+    position: absolute;
+    inset: 0 auto auto calc(var(--sidebarWidth));
     display: flex;
     flex-flow: column;
-
-    // @include minScreenSize(576px) {
-    //     max-width: 540px;
-    // }
-
-    // @include minScreenSize(768px) {
-    //     max-width: 720px;
-    // }
-
-    // @include minScreenSize(992px) {
-    //     max-width: 960px;
-    // }
-
-    // @include minScreenSize(1200px) {
-    //     max-width: 1140px;
-    // }
 
     h1,
     h3 {
         margin-top: 1rem;
         font-weight: 700;
     }
+}
+
+.container-inner {
+    @include elemDimension(100%);
+    padding: 0 30px;
+    margin: 0;
+    position: relative;
 }
 
 .container-section {

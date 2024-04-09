@@ -46,7 +46,9 @@ export const Dashboard = ({ type }) => {
 		<>
 			<NavigationBar />
 			<div className={styles["container"]}>
-				{isLoading ? location.pathname === "/logout" ? <LoadingScreen text={"Logging out..."} /> : <LoadingScreen /> : renderType(type)}
+				<div className={styles["container-inner"]}>
+					{isLoading ? location.pathname === "/logout" ? <LoadingScreen text={"Logging out..."} /> : <LoadingScreen /> : renderType(type)}
+				</div>
 			</div>
 		</>
 	);
