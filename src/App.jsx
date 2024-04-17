@@ -3,6 +3,7 @@ import { isAuthenticated } from "./auth/isAuthenticated";
 import { LoadingProvider } from "./context/LoadingContext";
 import { Dashboard } from "./pages/Dashboard";
 import { NotFoundPage } from "./pages/NotFound";
+import { AssetsTab } from "./pages/tabs/AssetsTab";
 
 const router = createBrowserRouter([
 	{
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
 	{
 		path: "/assets",
 		element: isAuthenticated() ? <Dashboard type={"assets"} /> : <Navigate to={"/account"} />,
+		children: [
+			{ path: "income", element: <AssetsTab listType={"income"} /> },
+			{ path: "expense", element: <AssetsTab listType={"expense"} /> },
+			{ path: "all", element: <AssetsTab listType={"all"} /> },
+		],
 	},
 	{
 		path: "/account",

@@ -16,8 +16,8 @@ $container-max-widths: (sm: 540px,
 
     h1,
     h3 {
-        margin-top: 1rem;
         font-weight: 700;
+        margin-top: 1rem;
     }
 }
 
@@ -70,6 +70,10 @@ $container-max-widths: (sm: 540px,
     @include maxScreenSize(770px) {
         flex-flow: column;
     }
+}
+
+.assets-row-spacing {
+    margin-bottom: 20px;
 }
 
 .asset-container {
@@ -147,6 +151,10 @@ $container-max-widths: (sm: 540px,
 
     span {
         cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 

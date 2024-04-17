@@ -9,7 +9,14 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 	const { data } = useContext(AppContext);
 
 	const filteredItems = useMemo(() => {
-		return type !== "all" ? data.filter((item) => item.type === type) : data;
+		let items = type !== "all" ? data.filter((item) => item.type === type) : data;
+		items.sort((a, b) => {
+			const dateA = new Date(a.date);
+			const dateB = new Date(b.date);
+			return dateB - dateA; // Descending order
+		});
+
+		return items;
 	}, [data, type]);
 
 	const [displayItems, setDisplayItems] = useState(filteredItems);

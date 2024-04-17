@@ -2,6 +2,7 @@
 @import "_mixins";
 
 .list-group-item {
+    width: 100%;
     background-color: var(--white);
     border: 1px solid var(--listColor);
     padding: 0.75rem 1.25rem;
@@ -10,6 +11,7 @@
     align-items: center;
     justify-content: space-between;
     z-index: 2;
+    overflow: hidden;
 
     &:before {
         content: "";
@@ -29,27 +31,35 @@
         border-radius: 5px !important;
     }
 
-    &:nth-child(even) {
-        &:before {
-            opacity: 0.2;
+    &:not(:only-child) {
+        &:nth-child(even) {
+            &:before {
+                opacity: 0.2;
+            }
+        }
+
+        &:first-child {
+            &:not(:only-child) {
+                border-bottom: none;
+                border-radius: 5px 5px 0 0;
+            }
+        }
+
+        &:last-child {
+            border-radius: 0 0 5px 5px !important;
+
+            &:not(:nth-child(2)) {
+                border-top: none;
+            }
         }
     }
+}
 
-    &:first-child {
-        &:not(:only-child) {
-            border-bottom: none;
-            border-radius: 5px 5px 0 0;
-        }
-    }
+.list-group-item-header {
+    font-weight: 700;
 
-    &:last-child {
-        &:not(:nth-child(2)) {
-            border-top: none;
-        }
-
-        &:not(:only-child) {
-            border-radius: 0 0 5px 5px;
-        }
+    .list-item {
+        height: 35px;
     }
 }
 
@@ -58,22 +68,40 @@
     justify-content: flex-start;
 }
 
+.second-item,
+.third-item {
+    margin: 0 10px;
+    justify-content: flex-start !important;
+}
+
 .second-item {
-    --width: 60%;
-    justify-content: flex-start;
+    --width: 120px;
+    justify-content: flex-start !important;
 }
 
 .third-item {
-    --width: 10%;
-    justify-content: flex-end;
+    --width: 150px;
+}
+
+.fourth-item {
+    --width: 200px;
+    padding: 5px;
+    justify-content: center !important;
+}
+
+.fifth-item {
+    --width: 100px;
+    justify-content: flex-end !important;
 }
 
 .list-item {
     min-width: var(--width);
     max-width: var(--width);
     position: relative;
+    flex: 1;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .name {
@@ -86,7 +114,6 @@
     border: 1px solid rgba(v.$gray-500, 0.8);
     border-radius: 8px;
     padding: 5px 8px;
-    margin-left: 20px;
     user-select: none;
     cursor: pointer;
     transition: border-color 100ms linear;
@@ -94,13 +121,6 @@
     &:hover {
         border-color: rgba(v.$gray-900, 0.9);
     }
-}
-
-.list-inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    user-select: none;
 }
 
 .badge {
@@ -128,10 +148,6 @@
     }
 }
 
-.badge-hasButton {
-    margin: 0 1rem 0 0;
-}
-
 .badge-income {
     &::before {
         background-color: var(--green);
@@ -144,6 +160,26 @@
     }
 }
 
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
 .button {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        @include elemDimension(80%);
+        transform: scale(0.8);
+        transition: transform 100ms linear;
+    }
+
+    &:hover {
+        svg {
+            transform: scale(0.9);
+        }
+    }
 }

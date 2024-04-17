@@ -1,5 +1,32 @@
 .list-group {
     display: flex;
     flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin: 1rem 0;
+}
+
+.yearTitle,
+.monthTitle {
+    font-family: "Ubuntu", sans-serif;
+}
+
+.yearTitle {
+    font-weight: 900;
+    letter-spacing: -1px;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.monthTitle {
+    letter-spacing: -1px;
+    text-align: center;
+}
+
+.yearData {
+    position: relative;
+}
+
+.monthData {
+    margin-bottom: 20px;
 }

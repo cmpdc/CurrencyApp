@@ -8,6 +8,11 @@ export const AppReducer = (state, action) => {
 				...state,
 				data: [...state.data, { ...action.payload, id: uuidv4() }],
 			};
+		case "UPDATE_ITEM":
+			return {
+				...state,
+				data: state.data.map((item) => (item.id === action.payload.id ? { ...item, ...action.payload } : item)),
+			};
 		case "DELETE_ITEM":
 			return {
 				...state,
@@ -19,6 +24,7 @@ export const AppReducer = (state, action) => {
 				budget: action.payload,
 			};
 		default:
+			console.error(`${action.type} is undefined. Check codes.`);
 			return state;
 	}
 };
