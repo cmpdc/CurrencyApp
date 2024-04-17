@@ -17,17 +17,17 @@ const Balance = () => {
 	}, [total]);
 
 	return (
-		<span>
-			<b>Balance:</b>{" "}
-			<span
+		<>
+			<div
 				className={classNames({
 					positive: !isBelowZero,
 					negative: isBelowZero,
 				})}
 			>
 				{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}
-			</span>
-		</span>
+			</div>
+			<b>Balance</b>{" "}
+		</>
 	);
 };
 

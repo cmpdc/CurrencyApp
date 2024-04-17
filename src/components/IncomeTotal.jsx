@@ -9,9 +9,8 @@ const IncomeTotal = () => {
 
 	return (
 		<>
-			<span>
-				<b>Income:</b> <span>{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}</span>
-			</span>
+			<div>{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}</div>
+			<b>Income</b>
 		</>
 	);
 };

@@ -1,9 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { AppContext } from "../context/AppContext";
+import styles from "../styles/AssetListContainer.module.scss";
+import { classNames } from "../utils/classNames";
 import { recentCounter } from "../utils/constants";
 import AssetListInner from "./AssetListInner";
 
-const AssetListContainer = ({ type, isShowRecent }) => {
+const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 	const { data } = useContext(AppContext);
 
 	const filteredItems = useMemo(() => {
@@ -23,9 +25,16 @@ const AssetListContainer = ({ type, isShowRecent }) => {
 
 	return (
 		<>
-			{type !== "all" && !isShowRecent && (
-				<input type="text" className="form-control mb-2 mr-sm-2" placeholder="Type to search..." onChange={handleChange} />
-			)}
+			<div
+				className={classNames(styles["header"], {
+					[[styles["hasTitle"]]]: showTitle,
+				})}
+			>
+				{showTitle && <span className={styles["typeTitle"]}>{String(type).toUpperCase()}</span>}
+				{type !== "all" && !isShowRecent && (
+					<input type="text" className={styles["form-control"]} placeholder="Type to search..." onChange={handleChange} />
+				)}
+			</div>
 			<AssetListInner assets={displayItems} isShowRecent={isShowRecent} />
 		</>
 	);

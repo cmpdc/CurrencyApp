@@ -8,9 +8,10 @@ const ExpenseTotal = () => {
 	const total = data.filter((item) => item.type === "expense").reduce((total, item) => total + item.cost, 0);
 
 	return (
-		<span>
-			<b>Expenses:</b> <span>{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}</span>
-		</span>
+		<>
+			<div>{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}</div>
+			<b>Expenses</b>
+		</>
 	);
 };
 

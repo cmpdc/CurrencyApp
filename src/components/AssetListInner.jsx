@@ -9,8 +9,10 @@ const AssetListInner = ({ assets, isShowRecent }) => {
 				<AssetItem
 					key={asset.id}
 					id={asset.id}
+					date={asset.date}
 					name={asset.name}
 					cost={formatCost(asset.cost, asset.type)}
+					category={asset.category}
 					type={asset.type}
 					isShowRecent={isShowRecent}
 				/>

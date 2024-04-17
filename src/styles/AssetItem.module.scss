@@ -1,7 +1,7 @@
+@use "_variables"as v;
 @import "_mixins";
 
 .list-group-item {
-    --listColor: rgba(0, 0, 0, 0.125);
     background-color: var(--white);
     border: 1px solid var(--listColor);
     padding: 0.75rem 1.25rem;
@@ -53,8 +53,53 @@
     }
 }
 
+.first-item {
+    --width: 30%;
+    justify-content: flex-start;
+}
+
+.second-item {
+    --width: 60%;
+    justify-content: flex-start;
+}
+
+.third-item {
+    --width: 10%;
+    justify-content: flex-end;
+}
+
+.list-item {
+    min-width: var(--width);
+    max-width: var(--width);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    position: relative;
+}
+
+.category {
+    font-size: 12px;
+    text-transform: uppercase;
+    border: 1px solid rgba(v.$gray-500, 0.8);
+    border-radius: 8px;
+    padding: 5px 8px;
+    margin-left: 20px;
+    user-select: none;
+    cursor: pointer;
+    transition: border-color 100ms linear;
+
+    &:hover {
+        border-color: rgba(v.$gray-900, 0.9);
+    }
+}
+
 .list-inner {
     position: relative;
+    display: flex;
+    align-items: center;
     user-select: none;
 }
 

@@ -22,6 +22,7 @@
 
 body {
     --sidebarWidth: 180px;
+    --listColor: rgba(0, 0, 0, 0.125);
     color: v.$body-color;
     text-align: left;
     font-family: v.$font-family-base;
@@ -30,11 +31,16 @@ body {
     line-height: v.$line-height-base;
     margin: 0;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     @include maxScreenSize(1200px) {
         --sidebarWidth: 70px;
     }
+}
+
+body:has(#modal) {
+    overflow: hidden;
+
 }
 
 h1,

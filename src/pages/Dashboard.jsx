@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { NavigationBar } from "../components/NavigationBar";
 import { useLoading } from "../context/LoadingContext";
 import styles from "../styles/Dashboard.module.scss";
+import { classNames } from "../utils/classNames";
 import { Home } from "./Home";
 import { LoadingScreen } from "./LoadingScreen";
 import { NotFoundPage } from "./NotFound";
@@ -46,7 +47,11 @@ export const Dashboard = ({ type }) => {
 		<>
 			<NavigationBar />
 			<div className={styles["container"]}>
-				<div className={styles["container-inner"]}>
+				<div
+					className={classNames(styles["container-inner"], {
+						[[styles["loadingScreen"]]]: isLoading,
+					})}
+				>
 					{isLoading ? location.pathname === "/logout" ? <LoadingScreen text={"Logging out..."} /> : <LoadingScreen /> : renderType(type)}
 				</div>
 			</div>

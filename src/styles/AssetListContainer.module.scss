@@ -1,0 +1,23 @@
+.header {
+    position: relative;
+
+    &.hasTitle {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.typeTitle {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.form-control {
+    height: 30px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    padding: 10px 8px;
+    appearance: none;
+}

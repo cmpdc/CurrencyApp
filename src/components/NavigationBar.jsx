@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaExchangeAlt, FaSignOutAlt } from "react-icons/fa";
 import { GiTwoCoins } from "react-icons/gi";
 import { HiCog } from "react-icons/hi";
 import { TiHome } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/NavigationBar.module.scss";
 import { classNames } from "../utils/classNames";
 
@@ -17,8 +17,14 @@ const links = [
 
 export const NavigationBar = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+
 	const [activeLink, setActiveLink] = useState("");
 	const [hoveredItem, setHoveredItem] = useState(null);
+
+	useEffect(() => {
+		setActiveLink(location.pathname);
+	}, [location.pathname]);
 
 	const handleClick = (link) => {
 		navigate(link);
