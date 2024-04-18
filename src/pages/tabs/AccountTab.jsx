@@ -27,7 +27,14 @@ export const AccountTab = () => {
 			window.dispatchEvent(new CustomEvent(STORAGE_UPDATE_KEY));
 		};
 
-		showModal(<CurrencySelectorForm onSave={handleSaveCurrencies} allowMultipleSelection={false} initialCurrencies={initialBaseCurrency} />);
+		showModal(
+			<CurrencySelectorForm
+				onSave={handleSaveCurrencies}
+				allowMultipleSelection={false}
+				initialCurrencies={initialBaseCurrency}
+				headerTitle="Select Base Currency"
+			/>,
+		);
 	};
 
 	useEffect(() => {
@@ -47,7 +54,7 @@ export const AccountTab = () => {
 			<section className={classNames(dashboardStyles["container-section"])}>
 				<h1>My Account</h1>
 				<div className={accountTabStyles["row"]}>
-					<span className={accountTabStyles["optionName"]}>Selected Default Currency</span>
+					<span className={accountTabStyles["optionName"]}>Selected Base Currency</span>
 					<div className={accountTabStyles["optionValue"]} onClick={handleCurrencyChange}>
 						{selectedBaseCurrency}
 					</div>

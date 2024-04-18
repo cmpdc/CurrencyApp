@@ -4,7 +4,7 @@ import styles from "../styles/CurrencyTab.module.scss";
 import { classNames } from "../utils/classNames";
 import { EXCHANGE_RATE_URL_LATEST_FULL, MAX_CURRENCIES_NUM } from "../utils/constants";
 
-export const CurrencySelectorForm = ({ onSave, initialCurrencies, allowMultipleSelection = false }) => {
+export const CurrencySelectorForm = ({ onSave, initialCurrencies, allowMultipleSelection = false, headerTitle = "Select Currency" }) => {
 	const [currencies, setCurrencies] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [selectedCurrencies, setSelectedCurrencies] = useState(initialCurrencies);
@@ -65,7 +65,7 @@ export const CurrencySelectorForm = ({ onSave, initialCurrencies, allowMultipleS
 				<p>Loading currencies...</p>
 			) : (
 				<>
-					<h3 className={styles["title"]}>Select {allowMultipleSelection ? "Currencies" : "Currency"}</h3>
+					<h3 className={styles["title"]}>{headerTitle}</h3>
 					<div className={styles["currencyOptionsContainer"]}>
 						<select
 							multiple={allowMultipleSelection}

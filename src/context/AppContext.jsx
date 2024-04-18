@@ -89,7 +89,7 @@ const initialState = {
 			type: "expense",
 		},
 	],
-	currencies: ["YEN"],
+	currencies: ["SAR", "PHP", "VND", "JPY"],
 };
 
 export const AppContext = createContext();
@@ -102,6 +102,7 @@ export const AppProvider = (props) => {
 			value={{
 				data: state.data,
 				budget: state.budget,
+				currencies: state.currencies,
 				dispatch,
 			}}
 		>

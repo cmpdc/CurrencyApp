@@ -61,6 +61,10 @@
     flex-flow: column;
     gap: 10px;
 
+    &.currency-list-selection {
+        position: relative;
+    }
+
     .currency-item {
         color: var(--gray-dark);
         background-color: rgba(v.$gray-400, 0.3);
@@ -72,6 +76,12 @@
         flex-flow: row;
         align-items: center;
         justify-content: space-between;
+        transitioN: background-color 100ms linear, border 100ms linear;
+    }
+
+    .currency-item-selected {
+        background-color: rgba(v.$gray-400, 0.5);
+        border: 1px solid rgba(v.$gray-600, 1);
     }
 
     .currencyName {
@@ -94,10 +104,29 @@
 
 .currencyTab {
     will-change: auto;
+
+    .gapFromGraph {
+        position: relative;
+    }
+
+    .headerTitle {
+        margin: 0 0 1em 0 !important;
+    }
 }
 
 .currencyGraph {
     margin-bottom: 30px;
+
+    .loadingGraph {
+        @include elemDimension(100%, 400px);
+        font-weight: 700;
+        font-size: 24px;
+        background-color: rgba(v.$gray-400, 0.5);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .currencyGraphButtons {
         width: 100%;

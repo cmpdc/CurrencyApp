@@ -1,4 +1,4 @@
-import { CategoryScale, Chart as ChartJS, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from "chart.js";
+import { CategoryScale, Chart as ChartJS, Filler, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from "chart.js";
 import { useEffect, useRef, useState } from "react";
 import { Line } from "react-chartjs-2";
 import currencyTabStyles from "../styles/CurrencyTab.module.scss";
@@ -6,17 +6,40 @@ import dashboardStyles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
 import { API_KEY, EXCHANGE_RATE_URL_BASIC } from "../utils/constants";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+const verticalLinePlugin = {
+	id: "verticalLine",
+	afterDraw: (chart, args, options) => {
+		const { ctx, tooltip } = chart;
+		if (tooltip.getActiveElements().length) {
+			const { x } = tooltip.getActiveElements()[0].element;
+			const topY = chart.scales.y.top;
+			const bottomY = chart.scales.y.bottom;
 
-export const CurrencyGraph = ({ currencies, baseCurrency }) => {
+			ctx.save();
+			ctx.beginPath();
+			ctx.moveTo(x, topY);
+			ctx.lineTo(x, bottomY);
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = "rgba(253, 126, 20, 0.7)";
+			ctx.stroke();
+			ctx.restore();
+		}
+	},
+};
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler, verticalLinePlugin);
+
+export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) => {
 	const [chartData, setChartData] = useState({
 		datasets: [],
 	});
 
+	const [isLoading, setLoading] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState(currencies[0]);
 	const [interval, setInterval] = useState("1Y");
 
-	const chartRef = useRef();
+	const graphContainerRef = useRef();
+	const graphRef = useRef();
 
 	useEffect(() => {
 		let isMounted = true;
@@ -24,6 +47,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 		const fetchRates = async () => {
 			const endDate = new Date();
 			const startDate = new Date();
+
 			switch (interval) {
 				case "1W":
 					startDate.setDate(endDate.getDate() - 7);
@@ -52,24 +76,45 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 				const response = await fetch(url);
 				const data = await response.json();
 
-				if (data && data.rates && isMounted) {
+				if (!isMounted) return;
+
+				if (data && data.rates) {
 					const labels = Object.keys(data.rates).sort();
 					const datasetData = labels.map((label) => data.rates[label][activeCurrency]);
 
-					const chartContainer = chartRef.current;
-					if (chartContainer && chartContainer.childNodes[0]) {
+					const chartContainer = graphContainerRef.current;
+					if (chartContainer && isMounted) {
 						setChartData({
 							labels,
 							datasets: [
 								{
-									label: `Exchange rate of ${activeCurrency} to ${baseCurrency}`,
+									label: `${activeCurrency} to ${baseCurrency}`,
 									data: datasetData,
 									borderColor: "rgb(253, 126, 20)",
+									backgroundColor: (context) => {
+										const chart = context.chart;
+										const { ctx, chartArea } = chart;
+
+										if (!chartArea) {
+											return;
+										}
+
+										const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+										gradient.addColorStop(1, "rgba(253, 126, 20, 0.7)");
+										gradient.addColorStop(0, "rgba(253, 126, 20, 0)");
+
+										return gradient;
+									},
 									tension: 0.2,
-									pointRadius: 3,
+									pointRadius: 0,
+									pointHoverRadius: 4,
 									pointBackgroundColor: "rgb(161, 73, 0)",
+									pointHoverBackgroundColor: "rgb(253, 126, 20)",
 									pointBorderColor: "rgb(161, 73, 0)",
-									pointHoverRadius: 5,
+									pointHoverBorderColor: "rgb(161, 73, 0)",
+									fill: "start",
+									hoverBackgroundColor: "rgb(253, 126, 20)",
+									hoverBorderColor: "rgb(161, 73, 0)",
 								},
 							],
 						});
@@ -77,6 +122,8 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 				}
 			} catch (error) {
 				console.error("Failed to fetch exchange rates:", error);
+			} finally {
+				if (isMounted) setLoading(false);
 			}
 		};
 
@@ -89,16 +136,59 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 
 	const handleCurrencyChange = (currency) => {
 		setActiveCurrency(currency);
+
+		if (onCurrencyChange) {
+			onCurrencyChange(currency);
+		}
 	};
 
 	const handleIntervalChange = (selectedInterval) => {
 		setInterval(selectedInterval);
 	};
 
+	const options = {
+		interaction: {
+			mode: "index",
+			intersect: false,
+		},
+		hover: {
+			mode: "index",
+			intersect: false,
+		},
+		plugins: {
+			tooltip: {
+				enabled: true,
+				mode: "index",
+				intersect: false,
+			},
+			legend: {
+				display: true,
+			},
+			verticalLine: {
+				enabled: true,
+			},
+		},
+		scales: {
+			x: {
+				display: true,
+			},
+			y: {
+				display: true,
+				beginAtZero: false,
+			},
+		},
+	};
+
 	return (
 		<>
-			<div className={currencyTabStyles["currencyGraph"]} ref={chartRef}>
-				<Line data={chartData} />
+			<div className={currencyTabStyles["currencyGraph"]} ref={graphContainerRef}>
+				{!isLoading ? (
+					<Line data={chartData} options={options} ref={graphRef} />
+				) : (
+					<>
+						<div className={currencyTabStyles["loadingGraph"]}>Fetching data...</div>
+					</>
+				)}
 				<ul
 					className={classNames(
 						currencyTabStyles["currencyGraphButtons"],
