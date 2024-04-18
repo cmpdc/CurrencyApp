@@ -1,5 +1,5 @@
 import { CategoryScale, Chart as ChartJS, Legend, LineElement, LinearScale, PointElement, Title, Tooltip } from "chart.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Line } from "react-chartjs-2";
 import currencyTabStyles from "../styles/CurrencyTab.module.scss";
 import dashboardStyles from "../styles/Dashboard.module.scss";
@@ -15,6 +15,8 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 
 	const [activeCurrency, setActiveCurrency] = useState(currencies[0]);
 	const [interval, setInterval] = useState("1Y");
+
+	const chartRef = useRef();
 
 	useEffect(() => {
 		let isMounted = true;
@@ -54,17 +56,24 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 					const labels = Object.keys(data.rates).sort();
 					const datasetData = labels.map((label) => data.rates[label][activeCurrency]);
 
-					setChartData({
-						labels,
-						datasets: [
-							{
-								label: `Exchange rate of ${activeCurrency} to ${baseCurrency}`,
-								data: datasetData,
-								borderColor: "rgb(75, 192, 192)",
-								tension: 0.1,
-							},
-						],
-					});
+					const chartContainer = chartRef.current;
+					if (chartContainer && chartContainer.childNodes[0]) {
+						setChartData({
+							labels,
+							datasets: [
+								{
+									label: `Exchange rate of ${activeCurrency} to ${baseCurrency}`,
+									data: datasetData,
+									borderColor: "rgb(253, 126, 20)",
+									tension: 0.2,
+									pointRadius: 3,
+									pointBackgroundColor: "rgb(161, 73, 0)",
+									pointBorderColor: "rgb(161, 73, 0)",
+									pointHoverRadius: 5,
+								},
+							],
+						});
+					}
 				}
 			} catch (error) {
 				console.error("Failed to fetch exchange rates:", error);
@@ -88,7 +97,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency }) => {
 
 	return (
 		<>
-			<div className={currencyTabStyles["currencyGraph"]}>
+			<div className={currencyTabStyles["currencyGraph"]} ref={chartRef}>
 				<Line data={chartData} />
 				<ul
 					className={classNames(
