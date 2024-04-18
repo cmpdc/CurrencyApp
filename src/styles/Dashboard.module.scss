@@ -122,8 +122,8 @@ $container-max-widths: (sm: 540px,
 }
 
 .add-item-button {
-    @extend .tab-item;
-    user-select: none;
+    position: relative;
+    cursor: pointer;
 }
 
 .add-item-button-hover {

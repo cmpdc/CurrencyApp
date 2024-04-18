@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddItemForm from "../../components/AddItemForm";
 import { AssetHeader } from "../../components/AssetHeader";
@@ -14,6 +15,9 @@ export const AssetsTab = ({ listType = "" }) => {
 	const { data } = useContext(AppContext);
 	const location = useLocation();
 	const navigate = useNavigate();
+	const { showModal } = useModal();
+
+	const addItemButtonRef = useRef();
 
 	const [incomeItems, setIncomeItems] = useState([]);
 	const [expenseItems, setExpenseItems] = useState([]);
@@ -34,10 +38,6 @@ export const AssetsTab = ({ listType = "" }) => {
 		setIncomeItems(income);
 		setExpenseItems(expenses);
 	}, [data]);
-
-	const { showModal } = useModal();
-
-	const addItemButtonRef = useRef();
 
 	const handleNavTabUpdate = (str) => {
 		setNavActiveTab(str);
@@ -91,7 +91,7 @@ export const AssetsTab = ({ listType = "" }) => {
 								addItemButtonRef.current.classList.remove(styles["add-item-button-hover"]);
 							}}
 						>
-							Add Item
+							<FaPlus />
 						</div>
 					</nav>
 					{activeNavTab === "Most Recent" && (

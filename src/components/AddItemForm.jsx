@@ -74,6 +74,7 @@ const AddItemForm = ({ props = null }) => {
 						onChange={(date) => setDate(date)}
 						dateFormat="MMMM d, yyyy"
 						className={styles["form-control"]}
+						showTimeSelect
 					/>
 				</div>
 				<div className={styles["divide"]}>

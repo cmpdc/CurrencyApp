@@ -1,12 +1,18 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { AppContext } from "../context/AppContext";
+import { useModal } from "../context/ModalContext";
 import styles from "../styles/AssetListContainer.module.scss";
 import { classNames } from "../utils/classNames";
 import { recentCounter } from "../utils/constants";
+import AddItemForm from "./AddItemForm";
 import AssetListInner from "./AssetListInner";
 
 const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 	const { data } = useContext(AppContext);
+	const { showModal } = useModal();
+
+	const addItemButtonRef = useRef();
 
 	const filteredItems = useMemo(() => {
 		let items = type !== "all" ? data.filter((item) => item.type === type) : data;
@@ -38,8 +44,32 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 				})}
 			>
 				{showTitle && <span className={styles["typeTitle"]}>{String(type).toUpperCase()}</span>}
-				{type !== "all" && !isShowRecent && (
-					<input type="text" className={styles["form-control"]} placeholder="Type to search..." onChange={handleChange} />
+				{!isShowRecent && (
+					<div className={styles["rightSide"]}>
+						<div
+							className={styles["add-item-button"]}
+							ref={addItemButtonRef}
+							onClick={() => {
+								showModal(<AddItemForm />);
+							}}
+							onMouseEnter={() => {
+								if (!addItemButtonRef.current) return;
+
+								addItemButtonRef.current.classList.add(styles["add-item-button-hover"]);
+							}}
+							onMouseLeave={() => {
+								if (!addItemButtonRef.current) return;
+
+								addItemButtonRef.current.classList.remove(styles["add-item-button-hover"]);
+							}}
+						>
+							<FaPlus />
+						</div>
+
+						<div className={styles["searchBox"]}>
+							<input type="text" className={styles["form-control"]} placeholder="Type to search..." onChange={handleChange} />
+						</div>
+					</div>
 				)}
 			</div>
 			<AssetListInner assets={displayItems} isShowRecent={isShowRecent} />

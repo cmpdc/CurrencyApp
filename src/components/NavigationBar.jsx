@@ -23,7 +23,12 @@ export const NavigationBar = () => {
 	const [hoveredItem, setHoveredItem] = useState(null);
 
 	useEffect(() => {
-		setActiveLink(location.pathname);
+		const path = location.pathname;
+		if (path.startsWith("/assets")) {
+			setActiveLink("/assets");
+		} else {
+			setActiveLink(path);
+		}
 	}, [location.pathname]);
 
 	const handleClick = (link) => {
