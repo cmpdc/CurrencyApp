@@ -10,7 +10,7 @@ const verticalLinePlugin = {
 	id: "verticalLine",
 	afterDraw: (chart, args, options) => {
 		const { ctx, tooltip } = chart;
-		if (tooltip.getActiveElements().length) {
+		if (tooltip && tooltip.getActiveElements().length) {
 			const { x } = tooltip.getActiveElements()[0].element;
 			const topY = chart.scales.y.top;
 			const bottomY = chart.scales.y.bottom;
