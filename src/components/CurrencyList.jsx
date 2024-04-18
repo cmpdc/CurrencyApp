@@ -4,7 +4,7 @@ import currencyStyles from "../styles/CurrencyTab.module.scss";
 import { classNames } from "../utils/classNames";
 import {
 	DEFAULT_BASE_CURRENCY,
-	EXCHANGE_RATE_URL,
+	EXCHANGE_RATE_URL_LATEST_FULL,
 	SELECTED_BASE_CURRENCY_KEY,
 	SELECTED_CURRENCIES_KEY,
 	STORAGE_UPDATE_KEY,
@@ -39,7 +39,7 @@ export const CurrencyList = () => {
 		let isMounted = true;
 
 		const fetchExchangeRates = async () => {
-			const url = `${EXCHANGE_RATE_URL}&base=${baseCurrency}`;
+			const url = `${EXCHANGE_RATE_URL_LATEST_FULL}&base=${baseCurrency}`;
 			try {
 				const response = await fetch(url);
 				const data = await response.json();

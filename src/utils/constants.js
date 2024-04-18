@@ -7,7 +7,10 @@ export const numberLocalOptionsObj = {
 };
 
 export const API_KEY = import.meta.env.VITE_CURRENCY_API_KEY;
-export const EXCHANGE_RATE_URL = `https://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
+
+export const EXCHANGE_RATE_URL_BASIC = `https://api.exchangeratesapi.io/v1/`;
+
+export const EXCHANGE_RATE_URL_LATEST_FULL = `https://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
 export const MAX_CURRENCIES_NUM = 6;
 export const DEFAULT_BASE_CURRENCY = "USD";

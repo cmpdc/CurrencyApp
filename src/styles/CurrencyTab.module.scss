@@ -96,6 +96,28 @@
     will-change: auto;
 }
 
+.currencyGraph {
+    margin-bottom: 30px;
+
+    .currencyGraphButtons {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .currencyGraphButton {
+        border-radius: 5px;
+        font-weight: 600;
+        user-select: none;
+        cursor: pointer;
+    }
+
+}
+
 .buttonContainer {
     margin-top: 20px;
     display: flex;

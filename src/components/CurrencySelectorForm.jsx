@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useModal } from "../context/ModalContext";
 import styles from "../styles/CurrencyTab.module.scss";
 import { classNames } from "../utils/classNames";
-import { EXCHANGE_RATE_URL, MAX_CURRENCIES_NUM } from "../utils/constants";
+import { EXCHANGE_RATE_URL_LATEST_FULL, MAX_CURRENCIES_NUM } from "../utils/constants";
 
 export const CurrencySelectorForm = ({ onSave, initialCurrencies, allowMultipleSelection = false }) => {
 	const [currencies, setCurrencies] = useState([]);
@@ -15,7 +15,7 @@ export const CurrencySelectorForm = ({ onSave, initialCurrencies, allowMultipleS
 		const fetchCurrencies = async () => {
 			setLoading(true);
 			try {
-				const response = await fetch(`${EXCHANGE_RATE_URL}`);
+				const response = await fetch(`${EXCHANGE_RATE_URL_LATEST_FULL}`);
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
