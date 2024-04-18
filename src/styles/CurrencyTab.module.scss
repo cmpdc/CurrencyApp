@@ -1,0 +1,117 @@
+@use "_variables"as v;
+@import "_mixins";
+
+.currencySelectorContainer {
+    width: 400px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+
+    &:not(.multiple) {
+        height: 150px;
+    }
+
+    .multiple {
+        height: 300px;
+    }
+
+    >* {
+        width: 100%;
+        flex: 1;
+    }
+
+    .title {
+        letter-spacing: -1px;
+        margin: 0;
+    }
+
+    .currencyOptionsContainer {
+        position: relative;
+    }
+
+    .buttonContainer {
+        margin: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    option {
+        font-size: 16px;
+        padding: 5px 0 5px 10px;
+    }
+
+    .currencyNotification {
+        color: rgba(v.$red, 0.9);
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+
+        &:empty {
+            display: none;
+        }
+    }
+}
+
+.currency-list {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+
+    .currency-item {
+        color: var(--gray-dark);
+        background-color: rgba(v.$gray-400, 0.3);
+        border-color: #d6d8db;
+        border-radius: 5px;
+        padding: 15px 20px;
+        position: relative;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .currencyName {
+        font-weight: 700;
+    }
+
+    .currencyValue {
+        font-weight: 700;
+    }
+
+    .valueNum,
+    .valueCurrency {
+        color: var(--green);
+    }
+
+    .valueCurrency {
+        margin-left: 5px;
+    }
+}
+
+.currencyTab {
+    will-change: auto;
+}
+
+.buttonContainer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addCurrencyButton {
+    color: var(--gray-dark);
+    font-weight: 600;
+    background-color: rgba(v.$gray-400, 0.3);
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    position: relative;
+    appearance: none;
+    cursor: pointer;
+    user-select: none;
+}

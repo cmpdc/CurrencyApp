@@ -1,4 +1,5 @@
 import { AssetHeader } from "../components/AssetHeader";
+import { CurrencyList } from "../components/CurrencyList";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
 
@@ -12,6 +13,7 @@ export const Home = () => {
 				<AssetHeader />
 
 				<h3>Currencies</h3>
+				<CurrencyList />
 			</section>
 		</>
 	);

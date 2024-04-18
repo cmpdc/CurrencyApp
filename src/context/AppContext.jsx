@@ -89,6 +89,7 @@ const initialState = {
 			type: "expense",
 		},
 	],
+	currencies: ["YEN"],
 };
 
 export const AppContext = createContext();

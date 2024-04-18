@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
-import Balance from "./Balance";
-import ExpenseTotal from "./ExpenseTotal";
-import IncomeTotal from "./IncomeTotal";
+import Balance from "./AssetBalance";
+import ExpenseTotal from "./AssetExpenseTotal";
+import IncomeTotal from "./AssetIncomeTotal";
 
 export const AssetHeader = () => {
 	const navigate = useNavigate();
