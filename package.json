@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+		"install_children": "concurrently \"npm run install:frontend\" \"npm run install:backend\"",
 		"start:frontend": "cd frontend && npm run dev",
 		"start:backend": "cd backend && npm start",
 		"build:frontend": "cd frontend && npm run build",
