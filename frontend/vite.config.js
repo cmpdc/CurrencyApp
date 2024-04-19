@@ -39,6 +39,15 @@ export default defineConfig({
 	server: {
 		open: true,
 		port: 6969,
+		proxy: {
+			"/api": {
+				target: "http://localhost:6970",
+				changeOrigin: true,
+				rewrite: (path) => {
+					return path.replace(/^\/api/, "");
+				},
+			},
+		},
 	},
 	define: {
 		global: "globalThis",

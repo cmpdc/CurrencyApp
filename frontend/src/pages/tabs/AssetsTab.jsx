@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddItemForm from "../../components/AddItemForm";
 import { AssetHeader } from "../../components/AssetHeader";
@@ -87,19 +86,15 @@ export const AssetsTab = () => {
 							onMouseEnter={(e) => {
 								if (!addItemButtonRef.current) return;
 
-								showTooltip("Add Item", e.target);
-
 								addItemButtonRef.current.classList.add(styles["add-item-button-hover"]);
 							}}
 							onMouseLeave={(e) => {
 								if (!addItemButtonRef.current) return;
 
-								hideTooltip();
-
 								addItemButtonRef.current.classList.remove(styles["add-item-button-hover"]);
 							}}
 						>
-							<FaPlus />
+							Add Item
 						</div>
 					</nav>
 					{activeNavTab === "Most Recent" && (

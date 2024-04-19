@@ -1,0 +1,78 @@
+import { useEffect } from "react";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
+import { LoadingProvider } from "./context/LoadingContext";
+import { Dashboard } from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import { NotFoundPage } from "./pages/NotFound";
+import Register from "./pages/Register";
+import { AssetsTab } from "./pages/tabs/AssetsTab";
+import { SELECTED_BASE_CURRENCY_KEY } from "./utils/constants";
+
+const App = () => {
+	const { isAuthenticated } = useAuth();
+
+	const router = createBrowserRouter([
+		{
+			path: "/",
+			element: <Home />,
+		},
+		{
+			path: "/login",
+			element: <Login />,
+		},
+		{
+			path: "/register",
+			element: <Register />,
+		},
+		{
+			path: "/dashboard",
+			element: isAuthenticated ? <Dashboard type={"home"} /> : <Navigate to={"/account"} />,
+		},
+		{
+			path: "/currency",
+			element: isAuthenticated ? <Dashboard type={"currency"} /> : <Navigate to={"/account"} />,
+		},
+		{
+			path: "/assets",
+			element: isAuthenticated ? <Dashboard type={"assets"} /> : <Navigate to={"/account"} />,
+			children: [
+				{ path: "income", element: <AssetsTab /> },
+				{ path: "expense", element: <AssetsTab /> },
+				{ path: "all", element: <AssetsTab /> },
+			],
+		},
+		{
+			path: "/account",
+			element: isAuthenticated ? <Dashboard type={"account"} /> : <Navigate to={"/account"} />,
+		},
+		{
+			path: "/logout",
+			element: isAuthenticated ? <Dashboard type={"logout"} /> : <Navigate to={"/account"} />,
+		},
+		{
+			path: "*",
+			element: <NotFoundPage />,
+		},
+	]);
+	useEffect(() => {
+		const initializeCurrency = async () => {
+			let currency = localStorage.getItem(SELECTED_BASE_CURRENCY_KEY);
+
+			if (!currency) {
+				localStorage.setItem(SELECTED_BASE_CURRENCY_KEY, JSON.stringify("USD"));
+			}
+		};
+
+		initializeCurrency();
+	}, []);
+
+	return (
+		<LoadingProvider>
+			<RouterProvider router={router} />
+		</LoadingProvider>
+	);
+};
+
+export default App;

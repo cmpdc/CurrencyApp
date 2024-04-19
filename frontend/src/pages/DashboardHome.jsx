@@ -3,7 +3,7 @@ import { CurrencyList } from "../components/CurrencyList";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
 
-export const Home = () => {
+export const DashboardHome = () => {
 	return (
 		<>
 			<section className={classNames(styles["container-section"])}>

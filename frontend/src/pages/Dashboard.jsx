@@ -4,7 +4,7 @@ import { NavigationBar } from "../components/NavigationBar";
 import { useLoading } from "../context/LoadingContext";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
-import { Home } from "./Home";
+import { DashboardHome } from "./DashboardHome";
 import { LoadingScreen } from "./LoadingScreen";
 import { NotFoundPage } from "./NotFound";
 import { AccountTab } from "./tabs/AccountTab";
@@ -21,7 +21,7 @@ export const Dashboard = ({ type }) => {
 	const renderType = (t) => {
 		switch (t) {
 			case "home":
-				return <Home />;
+				return <DashboardHome />;
 			case "currency":
 				return <CurrencyTab />;
 			case "assets":
