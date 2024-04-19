@@ -12,7 +12,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 0 25px 15px rgba(v.$gray-300, 0.4), 0 0 100px 15px rgba(v.$gray-300, 0.5);
-    padding: 20px;
+    padding: 30px 25px;
     position: absolute;
     inset: 50% auto auto 50%;
     display: flex;
@@ -31,7 +31,7 @@
     font-size: 2.5em;
     font-weight: 700;
     letter-spacing: -1px;
-    margin: 1rem 0 !important;
+    margin: 1.5rem 0 !important;
 }
 
 .inputForms {
@@ -57,23 +57,22 @@
 
     }
 
-    &:first-child {
-        margin: 50px 0 0 0;
-    }
-
     &:last-child {
         margin-bottom: 30px;
     }
 }
 
 .name {
-    width: 80px;
+    width: fit-content;
     font-size: 18px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: -1px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     line-height: 1;
+    user-select: none
 }
 
 .input {
@@ -83,10 +82,13 @@
     border-radius: 5px;
     padding: 10px;
     outline: none;
-    transition: background-color 100ms linear;
+    transition-property: background-color, box-shadow;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
 
     &:focus {
         background-color: rgba(v.$gray-300, 1);
+        box-shadow: 0 0 20px 10px rgba(v.$gray-400, 0.3);
     }
 }
 
@@ -103,21 +105,28 @@
     }
 }
 
-.buttonSave {
+.button {
     background-color: rgba(v.$gray-300, 0.7);
+    border: none;
+    outline: none;
     border-radius: 5px;
     padding: 15px;
     position: relative;
     cursor: pointer;
     transition: background-color 100ms linear, box-shadow 100ms linear;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: rgba(v.$blue, 0.8);
         box-shadow: 0 0 20px 3px rgba(v.$blue, 0.3);
 
         span {
             color: var(--white);
         }
+    }
+
+    &:hover {
+        box-shadow: 0 0 20px 3px rgba(v.$blue, 0.3);
     }
 
     span {
@@ -136,6 +145,7 @@
     width: 100%;
     font-size: 14px;
     text-align: center;
+    margin: 10px 0;
 
     .notificationType {
         font-weight: 700;

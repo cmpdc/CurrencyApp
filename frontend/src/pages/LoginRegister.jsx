@@ -1,11 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/LoginRegister.module.scss";
-
-const isMobileDevice = () => {
-	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-};
 
 const LoginRegister = ({ type }) => {
 	const navigate = useNavigate();
@@ -17,11 +13,16 @@ const LoginRegister = ({ type }) => {
 
 	const usernameInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
+	const secondButtonTextRef = useRef(null);
 
 	const isLogin = type === "login";
 	const apiUrl = `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/${type}`;
 	const navigateTo = isLogin ? "/dashboard" : "/login";
 	const buttonText = isLogin ? "Login" : "Register";
+
+	useEffect(() => {
+		secondButtonTextRef.current.textContent = type === "login" ? "register" : "login";
+	}, [secondButtonTextRef]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -42,6 +43,8 @@ const LoginRegister = ({ type }) => {
 			setNotification(errorText);
 		}
 	};
+
+	const handleSecondClick = () => {};
 
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
@@ -64,6 +67,7 @@ const LoginRegister = ({ type }) => {
 	return (
 		<div className={styles["loginPage"]}>
 			<div className={styles["loginContainer"]}>
+				<h1 className={styles["headerTitle"]}>{type === "register" ? "Create an Account" : "Login"}</h1>
 				<div className={styles["inputForms"]}>
 					<div className={styles["inputGroup"]}>
 						<span className={styles["name"]}>Username</span>
@@ -104,8 +108,11 @@ const LoginRegister = ({ type }) => {
 					</>
 				)}
 				<div className={styles["inputGroup"]}>
-					<div type="submit" onClick={handleSubmit} className={styles["buttonSave"]}>
+					<div type="submit" onClick={handleSubmit} className={styles["button"]} tabIndex={0}>
 						<span>{buttonText}</span>
+					</div>
+					<div onClick={handleSecondClick} className={styles["button"]} tabIndex={0} style={{ marginLeft: "5px" }}>
+						<span ref={secondButtonTextRef} />
 					</div>
 				</div>
 			</div>
