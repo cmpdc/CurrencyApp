@@ -14,12 +14,18 @@ export const AuthProvider = ({ children }) => {
 				setIsAuthenticated(false);
 			} else {
 				try {
-					const response = await fetch("/api/token", {
+					const response = await fetch(`http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/token`, {
 						headers: { Authorization: `Bearer ${token}` },
 					});
-					setIsAuthenticated(response.ok);
+
+					if (response.ok) {
+						setIsAuthenticated(response.ok);
+					} else {
+						console.log(response.text);
+					}
 				} catch (error) {
 					console.error("Token validation error:", error);
+
 					setIsAuthenticated(false);
 				}
 			}

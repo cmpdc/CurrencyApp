@@ -4,9 +4,8 @@ import { useAuth } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
 import { Dashboard } from "./pages/Dashboard";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import LoginRegister from "./pages/LoginRegister";
 import { NotFoundPage } from "./pages/NotFound";
-import Register from "./pages/Register";
 import { AssetsTab } from "./pages/tabs/AssetsTab";
 import { SELECTED_BASE_CURRENCY_KEY } from "./utils/constants";
 
@@ -20,11 +19,11 @@ const App = () => {
 		},
 		{
 			path: "/login",
-			element: <Login />,
+			element: <LoginRegister type={"login"} />,
 		},
 		{
 			path: "/register",
-			element: <Register />,
+			element: <LoginRegister type={"register"} />,
 		},
 		{
 			path: "/dashboard",
