@@ -6,8 +6,8 @@ import { numberLocalLocales, numberLocalOptionsObj } from "../utils/constants";
 const Balance = () => {
 	const { data } = useContext(AppContext);
 
-	const totalExpenses = data.filter((item) => item.type === "expense").reduce((total, item) => total + item.cost, 0);
-	const totalIncome = data.filter((item) => item.type === "income").reduce((total, item) => total + item.cost, 0);
+	const totalExpenses = data.filter((item) => item.type === "expense").reduce((total, item) => total + item.amount, 0);
+	const totalIncome = data.filter((item) => item.type === "income").reduce((total, item) => total + item.amount, 0);
 	const total = totalIncome - totalExpenses;
 
 	const [isBelowZero, setBelowZero] = useState(total < 0);

@@ -24,9 +24,9 @@ const router = createBrowserRouter([
 		path: "/assets",
 		element: isAuthenticated() ? <Dashboard type={"assets"} /> : <Navigate to={"/account"} />,
 		children: [
-			{ path: "income", element: <AssetsTab listType={"income"} /> },
-			{ path: "expense", element: <AssetsTab listType={"expense"} /> },
-			{ path: "all", element: <AssetsTab listType={"all"} /> },
+			{ path: "income", element: <AssetsTab /> },
+			{ path: "expense", element: <AssetsTab /> },
+			{ path: "all", element: <AssetsTab /> },
 		],
 	},
 	{

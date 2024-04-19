@@ -13,7 +13,7 @@ const AddItemForm = ({ props = null }) => {
 
 	const [name, setName] = useState("");
 	const [type, setType] = useState("");
-	const [cost, setCost] = useState("");
+	const [amount, setAmount] = useState("");
 	const [category, setCategory] = useState("");
 	const [id, setId] = useState(null);
 	const [date, setDate] = useState(new Date());
@@ -22,7 +22,7 @@ const AddItemForm = ({ props = null }) => {
 		if (props) {
 			setName(props.name);
 			setType(props.type);
-			setCost(props.cost);
+			setAmount(props.amount);
 			setCategory(props.category);
 			setId(props.id);
 			setDate(new Date(props.date));
@@ -37,7 +37,7 @@ const AddItemForm = ({ props = null }) => {
 		const payload = {
 			name,
 			type,
-			cost: parseInt(cost),
+			amount: parseInt(amount),
 			category,
 			date: date.toISOString(),
 		};
@@ -57,11 +57,17 @@ const AddItemForm = ({ props = null }) => {
 
 			// clearing form or when navigating away from this component
 			setName("");
-			setCost("");
+			setAmount("");
 			setType("");
 			setCategory("");
 			setId(null);
 		}
+	};
+
+	const onCancel = (event) => {
+		event.preventDefault();
+
+		hideModal();
 	};
 
 	return (
@@ -106,19 +112,19 @@ const AddItemForm = ({ props = null }) => {
 			</div>
 			<div className={styles["row"]}>
 				<div className={styles["divide"]}>
-					<label htmlFor="cost">Cost</label>
+					<label htmlFor="amount">Amount</label>
 					<input
 						required="required"
 						type="number"
 						className={styles["form-control"]}
-						id="cost"
-						value={cost}
-						onChange={(event) => setCost(event.target.value)}
+						id="amount"
+						value={amount}
+						onChange={(event) => setAmount(event.target.value)}
 						disabled={!type}
 					/>
 				</div>
 				<div className={styles["divide"]}>
-					<label htmlFor="cost">Category</label>
+					<label htmlFor="category">Category</label>
 					<input
 						type="text"
 						className={styles["form-control"]}
@@ -134,9 +140,20 @@ const AddItemForm = ({ props = null }) => {
 					type="submit"
 					className={classNames(styles["button"], styles["button-primary"])}
 					disabled={!type}
-					onClick={(e) => onSubmit(e)}
+					onClick={(e) => {
+						onSubmit(e);
+					}}
 				>
 					{props ? "Update" : "Save"}
+				</button>
+				<button
+					type="cancel"
+					className={classNames(styles["button"], styles["button-cancel"])}
+					onClick={(e) => {
+						onCancel(e);
+					}}
+				>
+					Cancel
 				</button>
 			</div>
 		</div>

@@ -58,7 +58,7 @@ $container-max-widths: (sm: 540px,
     }
 
     .view-all-button {
-        margin-top: -10px;
+        margin-top: 10px;
     }
 }
 
@@ -114,6 +114,10 @@ $container-max-widths: (sm: 540px,
     margin: 10px 0 0 0;
 }
 
+.container-right {
+    position: relative;
+}
+
 .container-nav-row {
     display: flex;
     flex-flow: row;
@@ -139,7 +143,6 @@ $container-max-widths: (sm: 540px,
     word-spacing: 2px;
     text-align: center;
     text-transform: uppercase;
-    padding: 7px 15px;
     position: relative;
     display: flex;
     align-items: center;

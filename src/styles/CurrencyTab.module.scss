@@ -105,6 +105,10 @@
 .currencyTab {
     will-change: auto;
 
+    .currencyGraphContainer {
+        height: 70vh
+    }
+
     .gapFromGraph {
         position: relative;
     }
@@ -116,6 +120,11 @@
 
 .currencyGraph {
     margin-bottom: 30px;
+
+    .graphHeading {
+        text-align: center;
+        margin: 0 0 30px 0 !important;
+    }
 
     .loadingGraph {
         @include elemDimension(100%, 400px);

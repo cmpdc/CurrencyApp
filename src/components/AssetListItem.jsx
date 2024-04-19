@@ -5,16 +5,16 @@ import { useModal } from "../context/ModalContext";
 import { useTooltip } from "../context/TooltipContext";
 import styles from "../styles/AssetListItem.module.scss";
 import { classNames } from "../utils/classNames";
-import { formatCost } from "../utils/formatCost";
+import { formatAmount } from "../utils/formatAmount";
 import AddItemForm from "./AddItemForm";
 
 export const AssetListItem = ({ data, isShowRecent }) => {
 	const { dispatch } = useContext(AppContext);
 	const { showModal } = useModal();
 	const { showTooltip, hideTooltip } = useTooltip();
-	const { id, name, date, cost, category, type } = data;
+	const { id, name, date, amount, category, type } = data;
 
-	const formattedCost = formatCost(cost, type);
+	const formattedCost = formatAmount(amount, type);
 
 	const handleDeleteItem = () => {
 		dispatch({
@@ -82,10 +82,36 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 			{!isShowRecent && (
 				<div className={classNames(styles["fifth-item"], styles["list-item"])}>
 					<div className={styles["buttons"]}>
-						<span onClick={handleDeleteItem} className={styles["button"]}>
+						<span
+							className={styles["button"]}
+							onClick={handleDeleteItem}
+							onMouseEnter={(e) => {
+								e.preventDefault();
+
+								showTooltip("Delete", e.target);
+							}}
+							onMouseLeave={(e) => {
+								e.preventDefault();
+
+								hideTooltip();
+							}}
+						>
 							<FaTrash size="1.5em" />
 						</span>
-						<span onClick={handleUpdateItem} className={styles["button"]}>
+						<span
+							className={styles["button"]}
+							onClick={handleUpdateItem}
+							onMouseEnter={(e) => {
+								e.preventDefault();
+
+								showTooltip("Edit", e.target);
+							}}
+							onMouseLeave={(e) => {
+								e.preventDefault();
+
+								hideTooltip();
+							}}
+						>
 							<FaPencilAlt size="1.5em" />
 						</span>
 					</div>

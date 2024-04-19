@@ -29,6 +29,8 @@ const verticalLinePlugin = {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler, verticalLinePlugin);
 
+const graphBorderColor = "rgb(253, 126, 20)";
+
 export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) => {
 	const [chartData, setChartData] = useState({
 		datasets: [],
@@ -147,6 +149,8 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 	};
 
 	const options = {
+		responsive: true,
+		maintainAspectRatio: false,
 		interaction: {
 			mode: "index",
 			intersect: false,
@@ -162,7 +166,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 				intersect: false,
 			},
 			legend: {
-				display: true,
+				display: false,
 			},
 			verticalLine: {
 				enabled: true,
@@ -182,13 +186,19 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 	return (
 		<>
 			<div className={currencyTabStyles["currencyGraph"]} ref={graphContainerRef}>
-				{!isLoading ? (
-					<Line data={chartData} options={options} ref={graphRef} />
-				) : (
-					<>
-						<div className={currencyTabStyles["loadingGraph"]}>Fetching data...</div>
-					</>
-				)}
+				<h3 className={currencyTabStyles["graphHeading"]}>
+					Currency Exchange (<span style={{ color: graphBorderColor }}>{activeCurrency}</span> to{" "}
+					<span style={{ color: graphBorderColor }}>{baseCurrency}</span>)
+				</h3>
+				<div className={currencyTabStyles["currencyGraphContainer"]}>
+					{!isLoading ? (
+						<Line data={chartData} options={options} ref={graphRef} />
+					) : (
+						<>
+							<div className={currencyTabStyles["loadingGraph"]}>Fetching data...</div>
+						</>
+					)}
+				</div>
 				<ul
 					className={classNames(
 						currencyTabStyles["currencyGraphButtons"],

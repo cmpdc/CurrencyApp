@@ -37,7 +37,7 @@ const initialState = {
 			date: "2024-01-15T05:59:51.380Z",
 			name: "Sanderson Factory",
 			category: "Hustle",
-			cost: 1200,
+			amount: 1200,
 			type: "income",
 		},
 		{
@@ -45,7 +45,7 @@ const initialState = {
 			date: "2024-02-01T06:00:57.526Z",
 			name: "Shopping",
 			category: "",
-			cost: 50,
+			amount: 50,
 			type: "expense",
 		},
 		{
@@ -53,7 +53,7 @@ const initialState = {
 			date: "2024-03-05T06:01:19.680Z",
 			name: "Holiday",
 			category: "",
-			cost: 300,
+			amount: 300,
 			type: "expense",
 		},
 		{
@@ -61,7 +61,7 @@ const initialState = {
 			date: "2024-04-01T06:02:39.832Z",
 			name: "Side Hustle",
 			category: "",
-			cost: 120,
+			amount: 120,
 			type: "income",
 		},
 		{
@@ -69,7 +69,7 @@ const initialState = {
 			date: "2024-04-10T06:02:57.015Z",
 			name: "Transportation",
 			category: "",
-			cost: 70,
+			amount: 70,
 			type: "expense",
 		},
 		{
@@ -77,7 +77,7 @@ const initialState = {
 			date: "2024-04-14T06:03:18.117Z",
 			name: "Fuel",
 			category: "",
-			cost: 40,
+			amount: 40,
 			type: "expense",
 		},
 		{
@@ -85,7 +85,7 @@ const initialState = {
 			date: "2024-04-12T06:03:41.907Z",
 			name: "Child Care",
 			category: "Baby",
-			cost: 500,
+			amount: 500,
 			type: "expense",
 		},
 	],

@@ -8,14 +8,16 @@ import { AssetListNoItem } from "../../components/AssetListNoItem";
 import AssetListSingle from "../../components/AssetListSingle";
 import { AppContext } from "../../context/AppContext";
 import { useModal } from "../../context/ModalContext";
+import { useTooltip } from "../../context/TooltipContext";
 import styles from "../../styles/Dashboard.module.scss";
 import { classNames } from "../../utils/classNames";
 
-export const AssetsTab = ({ listType = "" }) => {
+export const AssetsTab = () => {
 	const { data } = useContext(AppContext);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { showModal } = useModal();
+	const { showTooltip, hideTooltip } = useTooltip();
 
 	const addItemButtonRef = useRef();
 
@@ -24,11 +26,11 @@ export const AssetsTab = ({ listType = "" }) => {
 
 	const [activeNavTab, setNavActiveTab] = useState("Most Recent");
 	const [hoverNavTab, setNavHoverTab] = useState(null);
-	const [viewAllType, setViewAllType] = useState(null);
+	const [viewTypeTab, setTypeTab] = useState(null);
 
 	useEffect(() => {
 		const path = location.pathname.split("/").pop();
-		setViewAllType(path === "assets" ? null : path);
+		setTypeTab(path === "assets" ? null : path);
 	}, [location]);
 
 	useEffect(() => {
@@ -52,41 +54,47 @@ export const AssetsTab = ({ listType = "" }) => {
 			<section className={classNames(styles["container-section"])}>
 				<h1>My Assets</h1>
 			</section>
-			{viewAllType ? (
-				<AssetListSingle type={viewAllType} onBack={() => navigateView(null)} />
+			{viewTypeTab ? (
+				<AssetListSingle type={viewTypeTab} onBack={() => navigateView(null)} />
 			) : (
 				<>
 					<AssetHeader />
 					<nav className={classNames(styles["container-nav"], styles["container-nav-row"])}>
-						<ul className={styles["nav-tabs"]}>
-							{["Most Recent", "All"].map((tab, tabIndex) => (
-								<li
-									key={tabIndex}
-									className={classNames(styles["tab-item"], {
-										[styles["tab-active"]]: activeNavTab === tab,
-										[styles["tab-hover"]]: hoverNavTab === tab,
-									})}
-									onClick={() => handleNavTabUpdate(tab)}
-									onMouseEnter={() => setNavHoverTab(tab)}
-									onMouseLeave={() => setNavHoverTab(null)}
-								>
-									<span>{tab}</span>
-								</li>
-							))}
-						</ul>
+						<div className={styles["container-right"]}>
+							<ul className={styles["nav-tabs"]}>
+								{["Most Recent", "All"].map((tab, tabIndex) => (
+									<li
+										key={tabIndex}
+										className={classNames(styles["tab-item"], {
+											[styles["tab-active"]]: activeNavTab === tab,
+											[styles["tab-hover"]]: hoverNavTab === tab,
+										})}
+										onClick={() => handleNavTabUpdate(tab)}
+										onMouseEnter={() => setNavHoverTab(tab)}
+										onMouseLeave={() => setNavHoverTab(null)}
+									>
+										<span>{tab}</span>
+									</li>
+								))}
+							</ul>
+						</div>
 						<div
 							className={styles["add-item-button"]}
 							ref={addItemButtonRef}
 							onClick={() => {
 								showModal(<AddItemForm />);
 							}}
-							onMouseEnter={() => {
+							onMouseEnter={(e) => {
 								if (!addItemButtonRef.current) return;
+
+								showTooltip("Add Item", e.target);
 
 								addItemButtonRef.current.classList.add(styles["add-item-button-hover"]);
 							}}
-							onMouseLeave={() => {
+							onMouseLeave={(e) => {
 								if (!addItemButtonRef.current) return;
+
+								hideTooltip();
 
 								addItemButtonRef.current.classList.remove(styles["add-item-button-hover"]);
 							}}

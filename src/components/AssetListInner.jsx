@@ -11,14 +11,23 @@ const AssetListInner = ({ assets, isShowRecent }) => {
 		return <AssetListItem key={itemData.id} data={itemData} isShowRecent={isShowRecent} />;
 	};
 
+	const renderTableHeader = (showFifthItem) => {
+		return (
+			<>
+				<li className={classNames(stylesListItem["list-group-item"], stylesListItem["list-group-item-header"])}>
+					<div className={classNames(stylesListItem["first-item"], stylesListItem["list-item"])}>Date</div>
+					<div className={classNames(stylesListItem["second-item"], stylesListItem["list-item"])}>Name</div>
+					<div className={classNames(stylesListItem["third-item"], stylesListItem["list-item"])}>Category</div>
+					<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>Amount</div>
+					{showFifthItem && <div className={classNames(stylesListItem["fifth-item"], stylesListItem["list-item"])}></div>}
+				</li>
+			</>
+		);
+	};
+
 	return isShowRecent ? (
 		<ul className={stylesListInner["list-group"]}>
-			<li className={classNames(stylesListItem["list-group-item"], stylesListItem["list-group-item-header"])}>
-				<div className={classNames(stylesListItem["first-item"], stylesListItem["list-item"])}>Date</div>
-				<div className={classNames(stylesListItem["second-item"], stylesListItem["list-item"])}>Name</div>
-				<div className={classNames(stylesListItem["third-item"], stylesListItem["list-item"])}>Category</div>
-				<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>Cost</div>
-			</li>
+			{renderTableHeader(false)}
 			{assets?.map((asset) => {
 				return renderAssets(asset);
 			})}
@@ -36,13 +45,7 @@ const AssetListInner = ({ assets, isShowRecent }) => {
 								<span>{month}</span>
 							</h4>
 							<ul className={stylesListInner["list-group"]}>
-								<li className={classNames(stylesListItem["list-group-item"], stylesListItem["list-group-item-header"])}>
-									<div className={classNames(stylesListItem["first-item"], stylesListItem["list-item"])}>Date</div>
-									<div className={classNames(stylesListItem["second-item"], stylesListItem["list-item"])}>Name</div>
-									<div className={classNames(stylesListItem["third-item"], stylesListItem["list-item"])}>Category</div>
-									<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>Cost</div>
-									<div className={classNames(stylesListItem["fifth-item"], stylesListItem["list-item"])}></div>
-								</li>
+								{renderTableHeader(true)}
 								{items.map((item) => {
 									return renderAssets(item);
 								})}
