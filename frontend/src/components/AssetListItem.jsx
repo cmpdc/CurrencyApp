@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { useModal } from "../context/ModalContext";
 import { useTooltip } from "../context/TooltipContext";
@@ -13,6 +14,7 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 	const { showModal } = useModal();
 	const { showTooltip, hideTooltip } = useTooltip();
 	const { id, name, date, amount, category, type } = data;
+	const navigate = useNavigate();
 
 	const formattedCost = formatAmount(amount, type);
 
@@ -65,7 +67,12 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 			<div className={classNames(styles["second-item"], styles["list-item"])}>
 				<span className={styles["name"]}>{name}</span>
 			</div>
-			<div className={classNames(styles["third-item"], styles["list-item"])}>
+			<div
+				className={classNames(styles["third-item"], styles["list-item"])}
+				onClick={() => {
+					navigate(`/assets/category/${category}`);
+				}}
+			>
 				{category && <span className={styles["category"]}>{category}</span>}
 			</div>
 			<div className={classNames(styles["fourth-item"], styles["list-item"])}>

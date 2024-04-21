@@ -40,6 +40,7 @@ const App = () => {
 				{ path: "income", element: <AssetsTab /> },
 				{ path: "expense", element: <AssetsTab /> },
 				{ path: "all", element: <AssetsTab /> },
+				{ path: "category/:categoryName", element: <AssetsTab /> },
 			],
 		},
 		{

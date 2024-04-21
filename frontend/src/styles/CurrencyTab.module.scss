@@ -96,11 +96,6 @@
 .currencyTab {
     will-change: auto;
 
-    .currencyGraphContainer {
-        min-height: 250px;
-        max-height: 350px;
-    }
-
     .gapFromGraph {
         position: relative;
     }
@@ -108,6 +103,11 @@
     .headerTitle {
         margin: 0 0 1em 0 !important;
     }
+}
+
+.currencyGraphContainer {
+    min-height: 350px;
+    max-height: 350px;
 }
 
 .currencyGraph {
@@ -119,7 +119,7 @@
     }
 
     .loadingGraph {
-        @include elemDimension(100%, 400px);
+        @include elemDimension(100%, 350px);
         font-weight: 700;
         font-size: 24px;
         background-color: rgba(v.$gray-400, 0.5);

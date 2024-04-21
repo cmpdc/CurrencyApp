@@ -30,7 +30,7 @@ export const HomeTab = () => {
 				<h3>My Assets</h3>
 				<AssetHeader />
 
-				<h3>Currencies</h3>
+				<h3>Selected Currencies</h3>
 				<CurrencyList activeCurrency={baseCurrency} />
 			</section>
 		</>

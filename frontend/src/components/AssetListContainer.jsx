@@ -8,14 +8,14 @@ import { recentCounter } from "../utils/constants";
 import AddItemForm from "./AddItemForm";
 import AssetListInner from "./AssetListInner";
 
-const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
+const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilter, customTitle }) => {
 	const { data } = useContext(AppContext);
 	const { showModal } = useModal();
 
 	const addItemButtonRef = useRef();
 
 	const filteredItems = useMemo(() => {
-		let items = type !== "all" ? data.filter((item) => item.type === type) : data;
+		let items = customFilter ? customFilter(data) : type !== "all" ? data.filter((item) => item.type === type) : data;
 		items.sort((a, b) => {
 			const dateA = new Date(a.date);
 			const dateB = new Date(b.date);
@@ -23,7 +23,7 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 		});
 
 		return items;
-	}, [data, type]);
+	}, [data, type, customFilter]);
 
 	const [displayItems, setDisplayItems] = useState(filteredItems);
 
@@ -40,10 +40,11 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false }) => {
 		<>
 			<div
 				className={classNames(styles["header"], {
-					[[styles["hasTitle"]]]: showTitle,
+					[[styles["hasTitle"]]]: showTitle || customTitle,
 				})}
 			>
-				{showTitle && <span className={styles["typeTitle"]}>{String(type).toUpperCase()}</span>}
+				{customTitle && <span className={styles["typeTitle"]}>Category: {customTitle}</span>}
+				{!customTitle && showTitle && <span className={styles["typeTitle"]}>{String(type).toUpperCase()}</span>}
 				{!isShowRecent && (
 					<div className={styles["rightSide"]}>
 						<div

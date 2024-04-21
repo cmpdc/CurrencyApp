@@ -48,7 +48,7 @@ export const CurrencyTab = () => {
 				<h1>Currency</h1>
 				<CurrencyGraph currencies={initialCurrencies()} baseCurrency={baseCurrency} onCurrencyChange={handleCurrencyChange} />
 				<div className={currencyTabStyles["gapFromGraph"]}>
-					<h3 className={currencyTabStyles["headerTitle"]}>List of Favorite Currencies</h3>
+					<h3 className={currencyTabStyles["headerTitle"]}>Selected Currencies</h3>
 					<CurrencyList allowSelection={true} activeCurrency={activeCurrency} />
 				</div>
 				<div className={dashboardStyles["buttonContainer"]}>
