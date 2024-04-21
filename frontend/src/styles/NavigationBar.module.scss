@@ -71,7 +71,7 @@
         text-transform: uppercase;
         margin: 0;
 
-        @include maxScreenSize(1200px) {
+        @include maxScreenSize(1000px) {
             display: none;
         }
     }

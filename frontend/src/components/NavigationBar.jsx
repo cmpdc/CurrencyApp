@@ -4,8 +4,10 @@ import { GiTwoCoins } from "react-icons/gi";
 import { HiCog } from "react-icons/hi";
 import { TiHome } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useModal } from "../context/ModalContext";
 import styles from "../styles/NavigationBar.module.scss";
 import { classNames } from "../utils/classNames";
+import { AccountSettings } from "./AccountSettings";
 
 const links = [
 	{ link: "/dashboard", name: "Home", icon: <TiHome /> },
@@ -18,6 +20,7 @@ const links = [
 export const NavigationBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { showModal } = useModal();
 
 	const [activeLink, setActiveLink] = useState("");
 	const [hoveredItem, setHoveredItem] = useState(null);
@@ -32,6 +35,12 @@ export const NavigationBar = () => {
 	}, [location.pathname]);
 
 	const handleClick = (link) => {
+		if (link.replace("/", "") === "account") {
+			showModal(<AccountSettings />);
+
+			return;
+		}
+
 		navigate(link);
 		setActiveLink(link);
 	};

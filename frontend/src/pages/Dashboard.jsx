@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { LoadingScreen } from "../components/LoadingScreen";
 import { NavigationBar } from "../components/NavigationBar";
 import { useLoading } from "../context/LoadingContext";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
-import { DashboardHome } from "./DashboardHome";
-import { LoadingScreen } from "./LoadingScreen";
 import { NotFoundPage } from "./NotFound";
-import { AccountTab } from "./tabs/AccountTab";
 import { AssetsTab } from "./tabs/AssetsTab";
 import { CurrencyTab } from "./tabs/CurrencyTab";
+import { HomeTab } from "./tabs/HomeTab";
 import { LogoutTab } from "./tabs/LogoutTab";
 
 const timeoutInterval = 1200;
@@ -21,13 +20,11 @@ export const Dashboard = ({ type }) => {
 	const renderType = (t) => {
 		switch (t) {
 			case "home":
-				return <DashboardHome />;
+				return <HomeTab />;
 			case "currency":
 				return <CurrencyTab />;
 			case "assets":
 				return <AssetsTab />;
-			case "account":
-				return <AccountTab />;
 			case "logout":
 				return <LogoutTab />;
 			default:

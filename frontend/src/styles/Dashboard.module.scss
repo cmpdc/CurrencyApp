@@ -34,7 +34,7 @@ $container-max-widths: (sm: 540px,
 
 .container-section {
     margin: 20px 0;
-    flex: 1;
+    position: relative;
     display: flex;
     flex-flow: column;
     gap: 10px;

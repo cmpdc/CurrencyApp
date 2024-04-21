@@ -1,23 +1,28 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 import { AppProvider } from "./context/AppContext";
 import { AuthProvider } from "./context/AuthContext";
 import { ModalProvider } from "./context/ModalContext";
+import { ToastProvider } from "./context/ToastContext";
 import { TooltipProvider } from "./context/TooltipContext";
 import "./styles/_all.scss";
 
-ReactDOM.render(
+const container = document.querySelector("#root");
+const root = createRoot(container);
+
+root.render(
 	<React.StrictMode>
 		<AppProvider>
 			<AuthProvider>
-				<ModalProvider>
-					<TooltipProvider>
-						<App />
-					</TooltipProvider>
-				</ModalProvider>
+				<TooltipProvider>
+					<ToastProvider>
+						<ModalProvider>
+							<App />
+						</ModalProvider>
+					</ToastProvider>
+				</TooltipProvider>
 			</AuthProvider>
 		</AppProvider>
 	</React.StrictMode>,
-	document.getElementById("root"),
 );

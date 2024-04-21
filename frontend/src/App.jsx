@@ -27,15 +27,15 @@ const App = () => {
 		},
 		{
 			path: "/dashboard",
-			element: isAuthenticated ? <Dashboard type={"home"} /> : <Navigate to={"/account"} />,
+			element: isAuthenticated ? <Dashboard type={"home"} /> : <Navigate to={"/login"} />,
 		},
 		{
 			path: "/currency",
-			element: isAuthenticated ? <Dashboard type={"currency"} /> : <Navigate to={"/account"} />,
+			element: isAuthenticated ? <Dashboard type={"currency"} /> : <Navigate to={"/login"} />,
 		},
 		{
 			path: "/assets",
-			element: isAuthenticated ? <Dashboard type={"assets"} /> : <Navigate to={"/account"} />,
+			element: isAuthenticated ? <Dashboard type={"assets"} /> : <Navigate to={"/login"} />,
 			children: [
 				{ path: "income", element: <AssetsTab /> },
 				{ path: "expense", element: <AssetsTab /> },
@@ -43,18 +43,15 @@ const App = () => {
 			],
 		},
 		{
-			path: "/account",
-			element: isAuthenticated ? <Dashboard type={"account"} /> : <Navigate to={"/account"} />,
-		},
-		{
 			path: "/logout",
-			element: isAuthenticated ? <Dashboard type={"logout"} /> : <Navigate to={"/account"} />,
+			element: isAuthenticated ? <Dashboard type={"logout"} /> : <Navigate to={"/login"} />,
 		},
 		{
 			path: "*",
 			element: <NotFoundPage />,
 		},
 	]);
+
 	useEffect(() => {
 		const initializeCurrency = async () => {
 			let currency = localStorage.getItem(SELECTED_BASE_CURRENCY_KEY);

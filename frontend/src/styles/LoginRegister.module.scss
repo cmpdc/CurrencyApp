@@ -7,20 +7,106 @@
     inset: 0 auto auto 0;
 }
 
+.loginWrapper {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 50px;
+    transform: translate(-50%, -50%);
+}
+
+
+@keyframes pop {
+    from {
+        scale: var(--scale-start);
+    }
+
+    to {
+        scale: var(--scale-end);
+    }
+}
+
+@keyframes textGradient {
+    100% {
+        background-position: 150% center;
+    }
+}
+
+.logoContainer {
+    @include elemDimension(100%, 40px);
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    --c1: #fbda61;
+    --c2: #ff5acd;
+    --c3: #2563eb;
+    --logoGradient: linear-gradient(45deg,
+            var(--green),
+            var(--orange),
+            var(--c1),
+            var(--c3));
+    --ease-elastic: linear(0, 0.186 2.1%, 0.778 7.2%, 1.027 9.7%, 1.133, 1.212, 1.264, 1.292 15.4%,
+            1.296, 1.294, 1.285, 1.269 18.9%, 1.219 20.9%, 1.062 25.8%, 0.995 28.3%,
+            0.944 31.1%, 0.93, 0.921, 0.92 35.7%, 0.926, 0.94 39.7%, 1.001 47%, 1.014,
+            1.021 52.4%, 1.02 56.4%, 1 65.5%, 0.994 70.7%, 1.001 88.4%, 1);
+    --scale-start: 0.5;
+    --scale-end: 1.001;
+
+    .logoTitle {
+        height: 100%;
+        font-family: "Ubuntu";
+        text-transform: uppercase;
+        inset: 0 auto auto 10px;
+        margin: 0 !important;
+        position: relative;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        animation: pop 600ms var(--ease-elastic) forwards, textGradient 1s cubic-bezier(0, 0.55, 0.45, 1) forwards;
+    }
+
+    span {
+        letter-spacing: -3px;
+        padding: 0 8px;
+        overflow: visible;
+
+        &:first-child {
+            color: transparent;
+            font-size: 55px;
+            font-weight: 800;
+            background-image: var(--logoGradient);
+            background-size: 400%;
+            background-clip: text;
+        }
+
+        &:last-child {
+            color: var(--green);
+            font-size: 30px;
+            font-weight: 600;
+            text-shadow: 0 5px 15px rgba(v.$green, 0.5);
+            position: relative;
+            inset: -15px auto auto -10px;
+        }
+    }
+}
+
 .loginContainer {
-    @include elemDimension(420px, max-content);
+    height: max-content;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 0 25px 15px rgba(v.$gray-300, 0.4), 0 0 100px 15px rgba(v.$gray-300, 0.5);
     padding: 30px 25px;
-    position: absolute;
-    inset: 50% auto auto 50%;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: flex-start;
     gap: 15px;
-    transform: translate(-50%, -50%);
 
     >.inputGroup {
         justify-content: center;
@@ -32,6 +118,11 @@
     font-weight: 700;
     letter-spacing: -1px;
     margin: 1.5rem 0 !important;
+    user-select: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .inputForms {
@@ -62,8 +153,14 @@
     }
 }
 
+.inputGroupCol {
+    flex-flow: column;
+    gap: 15px;
+}
+
 .name {
-    width: fit-content;
+    width: max-content;
+    min-width: 90px;
     font-size: 18px;
     font-weight: 600;
     text-transform: uppercase;
@@ -77,6 +174,8 @@
 
 .input {
     @include elemDimension(150px, 40px);
+    color: #000;
+    font-size: 18px;
     background-color: rgba(v.$gray-300, 0.7);
     border: none;
     border-radius: 5px;
@@ -113,7 +212,9 @@
     padding: 15px;
     position: relative;
     cursor: pointer;
-    transition: background-color 100ms linear, box-shadow 100ms linear;
+    transition-property: background-color, box-shadow, color, transform;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
 
     &:hover,
     &:focus {
@@ -123,6 +224,10 @@
         span {
             color: var(--white);
         }
+    }
+
+    &:active {
+        transform: translate(0, 2px);
     }
 
     &:hover {
@@ -141,17 +246,12 @@
     }
 }
 
-.notification {
-    width: 100%;
-    font-size: 14px;
-    text-align: center;
-    margin: 10px 0;
+.buttonSecondary {
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
 
-    .notificationType {
-        font-weight: 700;
-    }
-
-    .notificationText {
-        margin-left: 10px;
+    &:hover {
+        text-decoration: underline;
     }
 }

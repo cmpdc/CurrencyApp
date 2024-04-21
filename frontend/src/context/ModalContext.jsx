@@ -10,9 +10,13 @@ export const ModalProvider = ({ children }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 
-	const showModal = (content) => {
+	const showModal = (content, onShow) => {
 		setModalContent(content);
 		setIsVisible(true);
+
+		if (onShow) {
+			onShow();
+		}
 	};
 
 	const hideModal = () => {

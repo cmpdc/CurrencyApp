@@ -1,16 +1,56 @@
 @use "_variables"as v;
+@import "_mixins";
 
-.row {
-    margin-top: 30px;
+.accountTab {
+    @include elemDimension(400px);
+    position: relative;
     display: flex;
-    align-items: center;
+    flex-flow: column;
+    align-items: flex-start;
     justify-content: flex-start;
+    overflow: hidden;
+}
+
+.accountTab-wrapper {
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    flex-flow: column;
     gap: 20px;
 }
 
+.row {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+
+    &:first-child {
+        margin-top: 40px;
+    }
+}
+
+.col {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin: 15px 0;
+}
+
 .optionName {
-    font-size: 18px;
+    min-width: 120px;
+    max-width: 120px;
+    font-size: 16px;
     font-weight: 700;
+    text-align: end;
     margin: 0 !important;
     position: relative;
 }
@@ -21,6 +61,43 @@
     background-color: rgba(v.$gray-200, 1);
     padding: 5px 10px;
     border-radius: 5px;
+    flex: 1;
+    user-select: none;
+
+    input {
+        font-size: 18px;
+        font-weight: 700;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        appearance: none;
+    }
+
+    span {
+        width: 100%;
+    }
+}
+
+.optionButtons {
+    flex: 1;
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+}
+
+.optionButton {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: rgba(v.$gray-200, 1);
+    padding: 5px 8px;
+    border-radius: 5px;
     user-select: none;
     cursor: pointer;
+    transition: opacity 100ms linear;
+}
+
+.optionButtonDisabled {
+    opacity: 0.7;
+    pointer-events: none;
 }

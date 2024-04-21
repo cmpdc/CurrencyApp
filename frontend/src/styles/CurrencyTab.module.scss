@@ -2,21 +2,12 @@
 @import "_mixins";
 
 .currencySelectorContainer {
-    width: 400px;
     position: relative;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
-
-    &:not(.multiple) {
-        height: 150px;
-    }
-
-    .multiple {
-        height: 300px;
-    }
 
     >* {
         width: 100%;
