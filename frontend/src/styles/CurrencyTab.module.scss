@@ -97,7 +97,8 @@
     will-change: auto;
 
     .currencyGraphContainer {
-        height: 70vh
+        min-height: 250px;
+        max-height: 350px;
     }
 
     .gapFromGraph {
