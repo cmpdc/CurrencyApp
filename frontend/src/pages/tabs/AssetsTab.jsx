@@ -7,7 +7,6 @@ import { AssetListNoItem } from "../../components/AssetListNoItem";
 import AssetListSingle from "../../components/AssetListSingle";
 import { AppContext } from "../../context/AppContext";
 import { useModal } from "../../context/ModalContext";
-import { useTooltip } from "../../context/TooltipContext";
 import styles from "../../styles/Dashboard.module.scss";
 import { classNames } from "../../utils/classNames";
 
@@ -16,7 +15,6 @@ export const AssetsTab = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { showModal } = useModal();
-	const { showTooltip, hideTooltip } = useTooltip();
 
 	const addItemButtonRef = useRef();
 

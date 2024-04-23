@@ -1,17 +1,18 @@
 @use "_variables"as v;
 @import "_mixins";
 
-.accountTab {
-    @include elemDimension(400px);
+.accountSettings {
+    @include elemDimension(450px, 500px);
     position: relative;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
     justify-content: flex-start;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-.accountTab-wrapper {
+.accountSettings-wrapper {
     min-width: 100%;
     position: relative;
     display: flex;
@@ -53,6 +54,7 @@
     text-align: end;
     margin: 0 !important;
     position: relative;
+    user-select: none;
 }
 
 .optionValue {
@@ -76,6 +78,10 @@
     span {
         width: 100%;
     }
+}
+
+.rowPadded .optionValue {
+    padding: 10px 15px;
 }
 
 .optionButtons {

@@ -73,7 +73,7 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilte
 					</div>
 				)}
 			</div>
-			<AssetListInner assets={displayItems} isShowRecent={isShowRecent} />
+			<AssetListInner assets={displayItems} isShowRecent={isShowRecent} type={type} />
 		</>
 	);
 };

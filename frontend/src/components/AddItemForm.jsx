@@ -1,11 +1,34 @@
-import { useContext, useEffect, useState } from "react";
+import { Button, FormLabel, Input, Option, Select } from "@mui/joy";
+import { forwardRef, useContext, useEffect, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { NumericFormat } from "react-number-format";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../context/AppContext";
 import { useModal } from "../context/ModalContext";
 import styles from "../styles/AddItemForm.module.scss";
 import { classNames } from "../utils/classNames";
+
+const NumericFormatAdapter = forwardRef(function NumericFormatAdapter(props, ref) {
+	const { onChange, ...other } = props;
+
+	return (
+		<NumericFormat
+			{...other}
+			getInputRef={ref}
+			onValueChange={(values) => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value,
+					},
+				});
+			}}
+			thousandSeparator
+			valueIsNumericString
+		/>
+	);
+});
 
 const AddItemForm = ({ props = null }) => {
 	const { dispatch } = useContext(AppContext);
@@ -74,7 +97,7 @@ const AddItemForm = ({ props = null }) => {
 		<div className={styles["formContainer"]}>
 			<div className={styles["row"]}>
 				<div className={styles["divide"]}>
-					<label htmlFor="date">Date</label>
+					<FormLabel htmlFor="date">Date</FormLabel>
 					<ReactDatePicker
 						selected={date}
 						onChange={(date) => setDate(date)}
@@ -84,22 +107,24 @@ const AddItemForm = ({ props = null }) => {
 					/>
 				</div>
 				<div className={styles["divide"]}>
-					<label htmlFor="type">Type</label>
-					<select
+					<FormLabel htmlFor="type">Type</FormLabel>
+					<Select
 						required="required"
 						className={styles["form-control"]}
 						id="type"
 						value={type}
-						onChange={(event) => setType(event.target.value)}
+						placeholder={"Select data type"}
+						onChange={(event, newValue) => {
+							setType(newValue);
+						}}
 					>
-						<option value="">Select Type</option>
-						<option value="expense">Expense</option>
-						<option value="income">Income</option>
-					</select>
+						<Option value="expense">Expense</Option>
+						<Option value="income">Income</Option>
+					</Select>
 				</div>
 				<div className={styles["divide"]}>
-					<label htmlFor="name">Name</label>
-					<input
+					<FormLabel htmlFor="name">Name</FormLabel>
+					<Input
 						required="required"
 						type="text"
 						className={styles["form-control"]}
@@ -112,20 +137,24 @@ const AddItemForm = ({ props = null }) => {
 			</div>
 			<div className={styles["row"]}>
 				<div className={styles["divide"]}>
-					<label htmlFor="amount">Amount</label>
-					<input
+					<FormLabel htmlFor="amount">{type === "expense" ? "Cost" : "Amount"}</FormLabel>
+					<Input
 						required="required"
-						type="number"
 						className={styles["form-control"]}
 						id="amount"
 						value={amount}
 						onChange={(event) => setAmount(event.target.value)}
 						disabled={!type}
+						slotProps={{
+							input: {
+								component: NumericFormatAdapter,
+							},
+						}}
 					/>
 				</div>
 				<div className={styles["divide"]}>
-					<label htmlFor="category">Category</label>
-					<input
+					<FormLabel htmlFor="category">Category</FormLabel>
+					<Input
 						type="text"
 						className={styles["form-control"]}
 						id="category"
@@ -136,25 +165,29 @@ const AddItemForm = ({ props = null }) => {
 				</div>
 			</div>
 			<div className={classNames(styles["row"], styles["single"])}>
-				<button
+				<Button
 					type="submit"
 					className={classNames(styles["button"], styles["button-primary"])}
 					disabled={!type}
 					onClick={(e) => {
 						onSubmit(e);
 					}}
+					variant="solid"
+					size="sm"
 				>
 					{props ? "Update" : "Save"}
-				</button>
-				<button
+				</Button>
+				<Button
 					type="cancel"
 					className={classNames(styles["button"], styles["button-cancel"])}
 					onClick={(e) => {
 						onCancel(e);
 					}}
+					variant="outline"
+					size="sm"
 				>
 					Cancel
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

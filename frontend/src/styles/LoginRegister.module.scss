@@ -186,8 +186,8 @@
     transition-timing-function: linear;
 
     &:focus {
-        background-color: rgba(v.$gray-300, 1);
-        box-shadow: 0 0 20px 10px rgba(v.$gray-400, 0.3);
+        background-color: rgba(v.$gray-300, 1) !important;
+        box-shadow: 0 0 20px 10px rgba(v.$gray-400, 0.3) !important;
     }
 }
 

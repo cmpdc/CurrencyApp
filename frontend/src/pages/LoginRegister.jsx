@@ -1,7 +1,9 @@
+import { Button, Input } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../context/ToastContext";
+import { useTooltip } from "../context/TooltipContext";
 import styles from "../styles/LoginRegister.module.scss";
 import { classNames } from "../utils/classNames";
 import { notifyOptions } from "../utils/notifyOptions";
@@ -9,10 +11,13 @@ import { notifyOptions } from "../utils/notifyOptions";
 const LoginRegister = ({ type }) => {
 	const navigate = useNavigate();
 	const { notify } = useToast();
+	const { showTooltip, hideTooltip } = useTooltip();
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
+
+	const headerTextRef = useRef();
 
 	const usernameInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
@@ -105,11 +110,22 @@ const LoginRegister = ({ type }) => {
 					</div>
 				</div>
 				<div className={styles["loginContainer"]} style={{ width: loginContainerWidth }}>
-					<h1 className={styles["headerTitle"]}>{headerText}</h1>
+					<h1
+						className={styles["headerTitle"]}
+						ref={headerTextRef}
+						onMouseEnter={() => {
+							showTooltip({ content: "Welcome", elementRef: headerTextRef, placement: "top" });
+						}}
+						onMouseLeave={() => {
+							hideTooltip({ elementRef: headerTextRef });
+						}}
+					>
+						{headerText}
+					</h1>
 					<div className={styles["inputForms"]}>
 						<div className={styles["inputGroup"]}>
 							<span className={styles["name"]}>{loginText}</span>
-							<input
+							<Input
 								ref={usernameInputRef}
 								className={styles["input"]}
 								type="username"
@@ -121,11 +137,14 @@ const LoginRegister = ({ type }) => {
 								onBlur={handleUsernameBlur}
 								required
 								spellCheck={false}
+								sx={{
+									width: "100%",
+								}}
 							/>
 						</div>
 						<div className={styles["inputGroup"]}>
 							<span className={styles["name"]}>{passwordText}</span>
-							<input
+							<Input
 								ref={passwordInputRef}
 								className={styles["input"]}
 								type={showPassword ? "text" : "password"}
@@ -135,6 +154,9 @@ const LoginRegister = ({ type }) => {
 								onKeyDown={handleKeyDown}
 								required
 								spellCheck={false}
+								sx={{
+									width: "100%",
+								}}
 							/>
 							<div className={styles["icon"]} onClick={handleShowPasswordChange}>
 								{showPassword ? <HiEye /> : <HiEyeOff />}
@@ -142,18 +164,19 @@ const LoginRegister = ({ type }) => {
 						</div>
 					</div>
 					<div className={classNames(styles["inputGroup"], styles["inputGroupCol"])}>
-						<div type="submit" onClick={handleSubmit} className={styles["button"]}>
+						<Button type="submit" onClick={handleSubmit} className={styles["button"]}>
 							<span>{primaryButtonText}</span>
-						</div>
-						<div
+						</Button>
+						<Button
 							onClick={() => {
 								handleSecondButtonClick();
 							}}
 							className={styles["buttonSecondary"]}
 							style={{ marginLeft: "5px" }}
+							variant="outline"
 						>
 							<span ref={secondButtonTextRef} />
-						</div>
+						</Button>
 					</div>
 				</div>
 			</div>

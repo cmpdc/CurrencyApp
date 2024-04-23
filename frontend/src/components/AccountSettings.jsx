@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useModal } from "../context/ModalContext";
 import { useToast } from "../context/ToastContext";
-import styles from "../styles/AccountTab.module.scss";
+import styles from "../styles/AccountSettings.module.scss";
 import { classNames } from "../utils/classNames";
 import { DEFAULT_BASE_CURRENCY, SELECTED_BASE_CURRENCY_KEY, STORAGE_UPDATE_KEY } from "../utils/constants";
 import { notifyOptions } from "../utils/notifyOptions";
@@ -27,7 +26,6 @@ const parseJwt = (token) => {
 };
 
 export const AccountSettings = () => {
-	const { showModal, hideModal } = useModal();
 	const { notify } = useToast();
 
 	const [username, setUsername] = useState("");
@@ -47,10 +45,6 @@ export const AccountSettings = () => {
 		return JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || DEFAULT_BASE_CURRENCY;
 	});
 
-	const initialBaseCurrency = () => {
-		return JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || [];
-	};
-
 	const handleSaveCurrencies = (selectedCurrencies) => {
 		const baseCurrency = selectedCurrencies[0];
 		localStorage.setItem(SELECTED_BASE_CURRENCY_KEY, JSON.stringify(baseCurrency));
@@ -60,7 +54,7 @@ export const AccountSettings = () => {
 
 	useEffect(() => {
 		const handleStorageUpdate = () => {
-			setSelectedBaseCurrency(JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || []);
+			setSelectedBaseCurrency(JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || DEFAULT_BASE_CURRENCY);
 		};
 
 		window.addEventListener(STORAGE_UPDATE_KEY, handleStorageUpdate);
@@ -166,16 +160,16 @@ export const AccountSettings = () => {
 
 	return (
 		<>
-			<div className={styles["accountTab"]}>
-				<div className={styles["accountTab-wrapper"]}>
+			<div className={styles["accountSettings"]}>
+				<div className={styles["accountSettings-wrapper"]}>
 					<h3 className={styles["sectionHeader"]}>Currency Settings</h3>
-					<div className={styles["row"]}>
+					<div className={classNames(styles["row"], styles["rowPadded"])}>
 						<span className={styles["optionName"]}>Selected Base Currency</span>
 						<div className={styles["optionValue"]}>
 							<CurrencySelectorForm
 								onSave={handleSaveCurrencies}
 								allowMultipleSelection={false}
-								initialCurrencies={initialBaseCurrency}
+								initialCurrencies={selectedBaseCurrency}
 								headerTitle={null}
 								width={null}
 								height={null}

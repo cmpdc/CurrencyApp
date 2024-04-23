@@ -4,7 +4,7 @@ import { classNames } from "../utils/classNames";
 import { groupByCategoricalDate } from "../utils/dataFilter";
 import { AssetListItem } from "./AssetListItem";
 
-const AssetListInner = ({ assets, isShowRecent }) => {
+const AssetListInner = ({ assets, isShowRecent, type }) => {
 	const groupDataByDate = groupByCategoricalDate(assets);
 
 	const renderAssets = (itemData) => {
@@ -18,7 +18,9 @@ const AssetListInner = ({ assets, isShowRecent }) => {
 					<div className={classNames(stylesListItem["first-item"], stylesListItem["list-item"])}>Date</div>
 					<div className={classNames(stylesListItem["second-item"], stylesListItem["list-item"])}>Name</div>
 					<div className={classNames(stylesListItem["third-item"], stylesListItem["list-item"])}>Category</div>
-					<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>Amount</div>
+					<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>
+						{type === "expense" ? "Cost" : type === "income" ? "Amount" : "Amount/Cost"}
+					</div>
 					{showFifthItem && <div className={classNames(stylesListItem["fifth-item"], stylesListItem["list-item"])}></div>}
 				</li>
 			</>

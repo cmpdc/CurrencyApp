@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
@@ -15,6 +15,10 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 	const { showTooltip, hideTooltip } = useTooltip();
 	const { id, name, date, amount, category, type } = data;
 	const navigate = useNavigate();
+
+	const timeRef = useRef();
+	const deleteButtonRef = useRef();
+	const editButtonRef = useRef();
 
 	const formattedCost = formatAmount(amount, type);
 
@@ -56,8 +60,13 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 		<li className={styles["list-group-item"]}>
 			<div className={classNames(styles["first-item"], styles["list-item"])}>
 				<time
+					ref={timeRef}
 					onMouseEnter={(e) => {
-						showTooltip(dateFormatDetailed, e.target);
+						showTooltip({
+							content: dateFormatDetailed,
+							elementRef: timeRef,
+							placement: "top",
+						});
 					}}
 					onMouseLeave={hideTooltip}
 				>
@@ -90,33 +99,43 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 				<div className={classNames(styles["fifth-item"], styles["list-item"])}>
 					<div className={styles["buttons"]}>
 						<span
+							ref={deleteButtonRef}
 							className={styles["button"]}
 							onClick={handleDeleteItem}
 							onMouseEnter={(e) => {
 								e.preventDefault();
 
-								showTooltip("Delete", e.target);
+								showTooltip({
+									content: "Delete",
+									elementRef: deleteButtonRef,
+									placement: "top",
+								});
 							}}
 							onMouseLeave={(e) => {
 								e.preventDefault();
 
-								hideTooltip();
+								hideTooltip({ deleteButtonRef });
 							}}
 						>
 							<FaTrash size="1.5em" />
 						</span>
 						<span
+							ref={editButtonRef}
 							className={styles["button"]}
 							onClick={handleUpdateItem}
 							onMouseEnter={(e) => {
 								e.preventDefault();
 
-								showTooltip("Edit", e.target);
+								showTooltip({
+									content: "Edit",
+									elementRef: editButtonRef,
+									placement: "top",
+								});
 							}}
 							onMouseLeave={(e) => {
 								e.preventDefault();
 
-								hideTooltip();
+								hideTooltip({ editButtonRef });
 							}}
 						>
 							<FaPencilAlt size="1.5em" />

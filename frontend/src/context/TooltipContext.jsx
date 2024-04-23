@@ -1,57 +1,63 @@
-import { createContext, useContext, useState } from "react";
-import ReactDOM from "react-dom";
-
-const defaultTooltipObj = { content: null, position: null };
+import { createContext, useContext, useEffect } from "react";
+import tippy, { followCursor, roundArrow } from "tippy.js";
+import "tippy.js/animations/scale-subtle.css";
+import "tippy.js/dist/svg-arrow.css";
+import "tippy.js/dist/tippy.css";
 
 const TooltipContext = createContext();
 
 export const useTooltip = () => useContext(TooltipContext);
 
 export const TooltipProvider = ({ children }) => {
-	const [tooltip, setTooltip] = useState(defaultTooltipObj);
+	useEffect(() => {
+		const handleMouseOver = (event) => {
+			const tooltipTarget = event.target.closest("[data-tippy-content]");
+			if (tooltipTarget && !tooltipTarget._tippy) {
+				tippy(tooltipTarget, {
+					content: () => tooltipTarget.getAttribute("data-tippy-content"),
+					allowHTML: true,
+				});
+			}
+		};
 
-	const showTooltip = (content, targetElement) => {
-		const rect = targetElement.getBoundingClientRect();
-		setTooltip({
-			content,
-			position: {
-				x: rect.x,
-				y: rect.y,
-				width: rect.width,
-				height: rect.height,
-				top: rect.top,
-				right: rect.right,
-				bottom: rect.bottom,
-				left: rect.left,
-			},
-		});
+		document.body.addEventListener("mouseover", handleMouseOver, true);
+
+		return () => {
+			document.body.removeEventListener("mouseover", handleMouseOver, true);
+		};
+	}, []);
+
+	const showTooltip = ({ content, elementRef, ...config }) => {
+		if (elementRef && elementRef.current) {
+			elementRef.current.setAttribute("data-tippy-content", content);
+			if (!elementRef.current._tippy) {
+				tippy(elementRef.current, {
+					content: content,
+					animation: "scale-subtle",
+					inertia: true,
+					arrow: roundArrow,
+					interactiveBorder: 30,
+					offset: [0, 10],
+					plugins: [followCursor],
+					appendTo: () => document.body,
+					...config,
+				});
+			} else {
+				elementRef.current._tippy.setProps({
+					content: () => content,
+					...config,
+				});
+
+				elementRef.current._tippy.show();
+			}
+		}
 	};
 
-	const hideTooltip = () => {
-		setTooltip({ content: null, position: { x: 0, y: 0 } });
+	const hideTooltip = ({ elementRef }) => {
+		if (elementRef && elementRef.current && elementRef.current._tippy) {
+			elementRef.current._tippy.hide();
+		}
 	};
 
-	return (
-		<TooltipContext.Provider value={{ showTooltip, hideTooltip }}>
-			{children}
-			{tooltip.content &&
-				ReactDOM.createPortal(
-					<div
-						style={{
-							position: "fixed",
-							top: tooltip.position.bottom,
-							left: tooltip.position.x - tooltip.position.width / 2,
-							zIndex: 1000,
-							backgroundColor: "white",
-							border: "1px solid black",
-							padding: "8px",
-						}}
-						id={`tooltip`}
-					>
-						{tooltip.content}
-					</div>,
-					document.getElementById("root"),
-				)}
-		</TooltipContext.Provider>
-	);
+	return <TooltipContext.Provider value={{ showTooltip, hideTooltip }}>{children}</TooltipContext.Provider>;
 };

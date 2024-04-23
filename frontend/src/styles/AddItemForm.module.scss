@@ -1,11 +1,18 @@
 @import "_mixins";
 @import "_extends";
 
+$smallWindowSize: 780px;
+
 .formContainer {
+    width: 650px;
     position: relative;
     display: flex;
     flex-flow: column;
     gap: 1rem;
+
+    @include maxScreenSize($smallWindowSize) {
+        width: 400px;
+    }
 }
 
 .row {
@@ -13,10 +20,26 @@
     flex-flow: row;
     align-items: center;
     justify-content: space-between;
-    gap: 25px;
+    gap: 5px;
+
+    @include maxScreenSize($smallWindowSize) {
+        flex-flow: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+
+        >div {
+            width: 100%;
+        }
+    }
 
     &.single {
-        justify-content: center;
+        align-items: center !important;
+        justify-content: center !important;
+
+        @include maxScreenSize($smallWindowSize) {
+            flex-flow: row;
+        }
     }
 }
 
