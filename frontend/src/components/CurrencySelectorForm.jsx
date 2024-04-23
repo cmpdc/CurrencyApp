@@ -1,7 +1,8 @@
 import { Button, Option, Select } from "@mui/joy";
+import { Reorder } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../contexts/ModalContext";
 import styles from "../styles/CurrencyTab.module.scss";
 import { classNames } from "../utils/classNames";
 import { EXCHANGE_RATE_URL_LATEST_FULL, MAX_CURRENCIES_NUM } from "../utils/constants";
@@ -11,7 +12,7 @@ export const CurrencySelectorForm = ({
 	onSave,
 	initialCurrencies,
 	allowMultipleSelection = false,
-	headerTitle = "Selected Currencies",
+	headerTitle = "Selected Quote Currencies",
 	width = "400px",
 	height = "auto",
 }) => {
@@ -96,6 +97,40 @@ export const CurrencySelectorForm = ({
 		);
 	};
 
+	const renderSelectedCurrencies = () => {
+		return (
+			<>
+				{selectedCurrencies.length ? (
+					<Reorder.Group values={selectedCurrencies} onReorder={setSelectedCurrencies}>
+						{selectedCurrencies.map((selectedCurrency) => (
+							<Reorder.Item
+								key={selectedCurrency}
+								value={selectedCurrency}
+								className={styles["currencySelectedOption"]}
+								initial={{ opacity: 0, x: 50 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: -50 }}
+								drag={true}
+								dragConstraints={{ left: 0, right: 0 }}
+								layout
+							>
+								<span className={styles["currencySelectedOptionName"]}>{currencyFullNames[selectedCurrency]}</span>
+								<span
+									onClick={(e) => handleRemoveSelectedCurrency(e, selectedCurrency)}
+									className={styles["currencySelectedOptionRemoveButton"]}
+								>
+									<IoIosClose />
+								</span>
+							</Reorder.Item>
+						))}
+					</Reorder.Group>
+				) : (
+					<span className={styles["currencyEmptySelection"]}>Nothing is selected</span>
+				)}
+			</>
+		);
+	};
+
 	return (
 		<div
 			className={classNames(styles["currencySelectorContainer"], {
@@ -112,29 +147,7 @@ export const CurrencySelectorForm = ({
 				<>
 					{headerTitle && <h3 className={styles["title"]}>{headerTitle}</h3>}
 					<div className={styles["currencyOptionsContainer"]}>
-						{allowMultipleSelection && (
-							<div className={styles["currencySelectedOptions"]}>
-								{selectedCurrencies.length ? (
-									selectedCurrencies.map((selectedCurrency) => {
-										return (
-											<div key={selectedCurrency} className={styles["currencySelectedOption"]}>
-												<span className={styles["currencySelectedOptionName"]}>{currencyFullNames[selectedCurrency]}</span>
-												<span
-													onClick={(e) => {
-														handleRemoveSelectedCurrency(e, selectedCurrency);
-													}}
-													className={styles["currencySelectedOptionRemoveButton"]}
-												>
-													<IoIosClose />
-												</span>
-											</div>
-										);
-									})
-								) : (
-									<span className={styles["currencyEmptySelection"]}>Nothing is selected</span>
-								)}
-							</div>
-						)}
+						{allowMultipleSelection && <div className={styles["currencySelectedOptions"]}>{renderSelectedCurrencies()}</div>}
 						<Select
 							value={selectedCurrencies}
 							renderValue={renderCurrencyAbbreviations}

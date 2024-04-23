@@ -4,7 +4,8 @@ import { GiTwoCoins } from "react-icons/gi";
 import { HiCog } from "react-icons/hi";
 import { TiHome } from "react-icons/ti";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../contexts/ModalContext";
+import accountSettingsStyles from "../styles/AccountSettings.module.scss";
 import styles from "../styles/NavigationBar.module.scss";
 import { classNames } from "../utils/classNames";
 import { AccountSettings } from "./AccountSettings";
@@ -36,7 +37,10 @@ export const NavigationBar = () => {
 
 	const handleClick = (link) => {
 		if (link.replace("/", "") === "account") {
-			showModal(<AccountSettings />);
+			showModal({
+				content: <AccountSettings />,
+				className: accountSettingsStyles["accountSettingsModal"],
+			});
 
 			return;
 		}

@@ -17,6 +17,7 @@
     .title {
         letter-spacing: -1px;
         margin: 0;
+        user-select: none;
     }
 
     .currencyOptionsContainer {
@@ -36,14 +37,18 @@
     .currencySelectedOptions {
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        padding: 10px;
+        padding: 15px;
         margin: 0 0 10px 0;
         position: relative;
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+
+        ul {
+
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
     }
 
     .currencyEmptySelection {

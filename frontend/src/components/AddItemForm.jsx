@@ -4,8 +4,8 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { NumericFormat } from "react-number-format";
 import { v4 as uuidv4 } from "uuid";
-import { AppContext } from "../context/AppContext";
-import { useModal } from "../context/ModalContext";
+import { AppContext } from "../contexts/AppContext";
+import { useModal } from "../contexts/ModalContext";
 import styles from "../styles/AddItemForm.module.scss";
 import { classNames } from "../utils/classNames";
 
@@ -118,8 +118,12 @@ const AddItemForm = ({ props = null }) => {
 							setType(newValue);
 						}}
 					>
-						<Option value="expense">Expense</Option>
-						<Option value="income">Income</Option>
+						<Option value="expense" style={{ userSelect: "none" }}>
+							Expense
+						</Option>
+						<Option value="income" style={{ userSelect: "none" }}>
+							Income
+						</Option>
 					</Select>
 				</div>
 				<div className={styles["divide"]}>
@@ -127,7 +131,9 @@ const AddItemForm = ({ props = null }) => {
 					<Input
 						required="required"
 						type="text"
-						className={styles["form-control"]}
+						className={classNames(styles["form-control"], {
+							[styles["form-control-disabled"]]: !type,
+						})}
 						id="name"
 						value={name}
 						disabled={!type}
@@ -140,7 +146,9 @@ const AddItemForm = ({ props = null }) => {
 					<FormLabel htmlFor="amount">{type === "expense" ? "Cost" : "Amount"}</FormLabel>
 					<Input
 						required="required"
-						className={styles["form-control"]}
+						className={classNames(styles["form-control"], {
+							[styles["form-control-disabled"]]: !type,
+						})}
 						id="amount"
 						value={amount}
 						onChange={(event) => setAmount(event.target.value)}
@@ -156,7 +164,9 @@ const AddItemForm = ({ props = null }) => {
 					<FormLabel htmlFor="category">Category</FormLabel>
 					<Input
 						type="text"
-						className={styles["form-control"]}
+						className={classNames(styles["form-control"], {
+							[styles["form-control-disabled"]]: !type,
+						})}
 						id="category"
 						value={category}
 						onChange={(event) => setCategory(event.target.value)}

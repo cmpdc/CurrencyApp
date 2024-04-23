@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../contexts/AppContext";
 import currencyStyles from "../styles/CurrencyTab.module.scss";
 import { classNames } from "../utils/classNames";
 import { EXCHANGE_RATE_URL_LATEST_FULL, SELECTED_CURRENCIES_KEY, STORAGE_UPDATE_KEY } from "../utils/constants";

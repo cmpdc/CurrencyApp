@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { useToast } from "../context/ToastContext";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppContext } from "../contexts/AppContext";
+import { useToast } from "../contexts/ToastContext";
 import styles from "../styles/AccountSettings.module.scss";
 import { classNames } from "../utils/classNames";
-import { DEFAULT_BASE_CURRENCY, SELECTED_BASE_CURRENCY_KEY, STORAGE_UPDATE_KEY } from "../utils/constants";
+import { DEFAULT_BASE_CURRENCY, SELECTED_BASE_CURRENCY_KEY, SELECTED_CURRENCIES_KEY, STORAGE_UPDATE_KEY } from "../utils/constants";
 import { notifyOptions } from "../utils/notifyOptions";
 import { CurrencySelectorForm } from "./CurrencySelectorForm";
 
@@ -27,6 +28,7 @@ const parseJwt = (token) => {
 
 export const AccountSettings = () => {
 	const { notify } = useToast();
+	const { currencies } = useContext(AppContext);
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -44,6 +46,10 @@ export const AccountSettings = () => {
 	const [selectedBaseCurrency, setSelectedBaseCurrency] = useState(() => {
 		return JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || DEFAULT_BASE_CURRENCY;
 	});
+
+	const initialCurrencies = () => {
+		return JSON.parse(localStorage.getItem(SELECTED_CURRENCIES_KEY)) || currencies;
+	};
 
 	const handleSaveCurrencies = (selectedCurrencies) => {
 		const baseCurrency = selectedCurrencies[0];
@@ -170,6 +176,23 @@ export const AccountSettings = () => {
 								onSave={handleSaveCurrencies}
 								allowMultipleSelection={false}
 								initialCurrencies={selectedBaseCurrency}
+								headerTitle={null}
+								width={null}
+								height={null}
+							/>
+						</div>
+					</div>
+					<div className={classNames(styles["row"], styles["rowPadded"])}>
+						<span className={styles["optionName"]}>Selected Quote Currencies</span>
+						<div className={styles["optionValue"]}>
+							<CurrencySelectorForm
+								allowMultipleSelection={true}
+								initialCurrencies={initialCurrencies()}
+								onSave={(selectedCurrencies) => {
+									localStorage.setItem(SELECTED_CURRENCIES_KEY, JSON.stringify(selectedCurrencies));
+
+									window.dispatchEvent(new CustomEvent(STORAGE_UPDATE_KEY));
+								}}
 								headerTitle={null}
 								width={null}
 								height={null}

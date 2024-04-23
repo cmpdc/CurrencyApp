@@ -20,7 +20,7 @@ $smallWindowSize: 780px;
     flex-flow: row;
     align-items: center;
     justify-content: space-between;
-    gap: 5px;
+    gap: 10px;
 
     @include maxScreenSize($smallWindowSize) {
         flex-flow: column;
@@ -87,7 +87,7 @@ $smallWindowSize: 780px;
         opacity: 1;
     }
 
-    &:disabled,
+    &.form-control-disabled,
     &[readonly] {
         background-color: #e9ecef;
         opacity: 1;

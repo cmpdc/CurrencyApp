@@ -1,9 +1,9 @@
 import { useContext, useRef } from "react";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
-import { useModal } from "../context/ModalContext";
-import { useTooltip } from "../context/TooltipContext";
+import { AppContext } from "../contexts/AppContext";
+import { useModal } from "../contexts/ModalContext";
+import { useTooltip } from "../contexts/TooltipContext";
 import styles from "../styles/AssetListItem.module.scss";
 import { classNames } from "../utils/classNames";
 import { formatAmount } from "../utils/formatAmount";
@@ -30,7 +30,9 @@ export const AssetListItem = ({ data, isShowRecent }) => {
 	};
 
 	const handleUpdateItem = () => {
-		showModal(<AddItemForm props={data} />);
+		showModal({
+			content: <AddItemForm props={data} />,
+		});
 	};
 
 	const itemDate = new Date(date);

@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { CurrencyGraph } from "../../components/CurrencyGraph";
 import { CurrencyList } from "../../components/CurrencyList";
 import { CurrencySelectorForm } from "../../components/CurrencySelectorForm";
-import { AppContext } from "../../context/AppContext";
-import { useModal } from "../../context/ModalContext";
+import { AppContext } from "../../contexts/AppContext";
+import { useModal } from "../../contexts/ModalContext";
 import currencyTabStyles from "../../styles/CurrencyTab.module.scss";
 import dashboardStyles from "../../styles/Dashboard.module.scss";
 import { classNames } from "../../utils/classNames";
@@ -23,19 +23,21 @@ export const CurrencyTab = () => {
 	};
 
 	const handleAddCurrencyClick = () => {
-		showModal(
-			<CurrencySelectorForm
-				allowMultipleSelection={true}
-				initialCurrencies={initialCurrencies()}
-				onSave={(selectedCurrencies) => {
-					localStorage.setItem(SELECTED_CURRENCIES_KEY, JSON.stringify(selectedCurrencies));
+		showModal({
+			content: (
+				<CurrencySelectorForm
+					allowMultipleSelection={true}
+					initialCurrencies={initialCurrencies()}
+					onSave={(selectedCurrencies) => {
+						localStorage.setItem(SELECTED_CURRENCIES_KEY, JSON.stringify(selectedCurrencies));
 
-					hideModal();
+						hideModal();
 
-					window.dispatchEvent(new CustomEvent(STORAGE_UPDATE_KEY));
-				}}
-			/>,
-		);
+						window.dispatchEvent(new CustomEvent(STORAGE_UPDATE_KEY));
+					}}
+				/>
+			),
+		});
 	};
 
 	const handleCurrencyChange = (currency) => {
@@ -48,7 +50,7 @@ export const CurrencyTab = () => {
 				<h1>Currency</h1>
 				<CurrencyGraph currencies={initialCurrencies()} baseCurrency={baseCurrency} onCurrencyChange={handleCurrencyChange} />
 				<div className={currencyTabStyles["gapFromGraph"]}>
-					<h3 className={currencyTabStyles["headerTitle"]}>Selected Currencies</h3>
+					<h3 className={currencyTabStyles["headerTitle"]}>Selected Quote Currencies</h3>
 					<CurrencyList allowSelection={true} activeCurrency={activeCurrency} />
 				</div>
 				<div className={dashboardStyles["buttonContainer"]}>

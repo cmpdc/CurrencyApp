@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { NavigationBar } from "../components/NavigationBar";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../contexts/LoadingContext";
 import styles from "../styles/Dashboard.module.scss";
 import { classNames } from "../utils/classNames";
 import { NotFoundPage } from "./NotFound";

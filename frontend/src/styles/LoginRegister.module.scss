@@ -159,10 +159,11 @@
 }
 
 .name {
-    width: max-content;
+    width: 100px;
     min-width: 90px;
     font-size: 18px;
     font-weight: 600;
+    text-align: right;
     text-transform: uppercase;
     letter-spacing: -1px;
     display: flex;

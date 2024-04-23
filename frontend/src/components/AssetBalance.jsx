@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../contexts/AppContext";
 import { classNames } from "../utils/classNames";
 import { numberLocalLocales, numberLocalOptionsObj } from "../utils/constants";
 

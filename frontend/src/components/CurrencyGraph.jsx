@@ -40,6 +40,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 	const [isLoading, setLoading] = useState(true);
 	const [activeCurrency, setActiveCurrency] = useState(currencies[0]);
 	const [interval, setInterval] = useState("1Y");
+	const [maxYTicks, setMaxYTicks] = useState(12);
 
 	const graphContainerRef = useRef();
 	const graphRef = useRef();
@@ -147,6 +148,21 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 
 	const handleIntervalChange = (selectedInterval) => {
 		setInterval(selectedInterval);
+
+		switch (selectedInterval) {
+			case "1W":
+				setMaxYTicks(8);
+				break;
+			case "1M":
+			case "3M":
+				setMaxYTicks(12);
+				break;
+			case "6M":
+			case "1Y":
+			default:
+				setMaxYTicks(12);
+				break;
+		}
 	};
 
 	const options = {
@@ -160,11 +176,42 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 			mode: "index",
 			intersect: false,
 		},
+		layout: {
+			padding: 0,
+		},
 		plugins: {
 			tooltip: {
 				enabled: true,
 				mode: "index",
 				intersect: false,
+				displayColors: false,
+				callbacks: {
+					title: (tooltipItems) => {
+						const item = tooltipItems[0];
+
+						const date = new Date(item.label);
+
+						return date.toLocaleDateString(undefined, {
+							year: "numeric",
+							month: "long",
+							day: "2-digit",
+						});
+					},
+					label: (context) => {
+						let label = "";
+
+						if (context.parsed.y !== null) {
+							label += new Intl.NumberFormat("en-US", {
+								minimumFractionDigits: 4,
+								maximumFractionDigits: 4,
+							}).format(context.parsed.y);
+						}
+
+						label += ` ${baseCurrency}`;
+
+						return label;
+					},
+				},
 			},
 			legend: {
 				display: false,
@@ -176,10 +223,20 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 		scales: {
 			x: {
 				display: true,
+				grid: {},
+				ticks: {
+					display: false,
+					maxTicksLimit: maxYTicks,
+				},
 			},
 			y: {
 				display: true,
 				beginAtZero: false,
+				ticks: {
+					callback: (value) => {
+						return value.toFixed(4);
+					},
+				},
 			},
 		},
 	};

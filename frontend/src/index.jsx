@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { AppProvider } from "./context/AppContext";
-import { AuthProvider } from "./context/AuthContext";
-import { ModalProvider } from "./context/ModalContext";
-import { ToastProvider } from "./context/ToastContext";
-import { TooltipProvider } from "./context/TooltipContext";
+import { AppProvider } from "./contexts/AppContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ModalProvider } from "./contexts/ModalContext";
+import { ToastProvider } from "./contexts/ToastContext";
+import { TooltipProvider } from "./contexts/TooltipContext";
 import "./styles/_all.scss";
 
 const container = document.querySelector("#root");

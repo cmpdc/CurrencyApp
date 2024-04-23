@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
-import { LoadingProvider } from "./context/LoadingContext";
+import { useAuth } from "./contexts/AuthContext";
+import { LoadingProvider } from "./contexts/LoadingContext";
 import { Dashboard } from "./pages/Dashboard";
 import Home from "./pages/Home";
 import LoginRegister from "./pages/LoginRegister";

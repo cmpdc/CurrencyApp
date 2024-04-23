@@ -2,8 +2,8 @@ import { Button, Input } from "@mui/joy";
 import { useEffect, useRef, useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../context/ToastContext";
-import { useTooltip } from "../context/TooltipContext";
+import { useToast } from "../contexts/ToastContext";
+import { useTooltip } from "../contexts/TooltipContext";
 import styles from "../styles/LoginRegister.module.scss";
 import { classNames } from "../utils/classNames";
 import { notifyOptions } from "../utils/notifyOptions";
@@ -17,7 +17,7 @@ const LoginRegister = ({ type }) => {
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
 
-	const headerTextRef = useRef();
+	const showPasswordRef = useRef();
 
 	const usernameInputRef = useRef(null);
 	const passwordInputRef = useRef(null);
@@ -33,7 +33,7 @@ const LoginRegister = ({ type }) => {
 	const createAccText = "Create an Account";
 
 	const loginText = type === "login" ? "Username" : "Create Username";
-	const passwordText = type === "login" ? "Register" : "Create Password";
+	const passwordText = type === "login" ? "Password" : "Create Password";
 
 	const loginContainerWidth = type === "login" ? `420px` : `500px`;
 
@@ -110,18 +110,7 @@ const LoginRegister = ({ type }) => {
 					</div>
 				</div>
 				<div className={styles["loginContainer"]} style={{ width: loginContainerWidth }}>
-					<h1
-						className={styles["headerTitle"]}
-						ref={headerTextRef}
-						onMouseEnter={() => {
-							showTooltip({ content: "Welcome", elementRef: headerTextRef, placement: "top" });
-						}}
-						onMouseLeave={() => {
-							hideTooltip({ elementRef: headerTextRef });
-						}}
-					>
-						{headerText}
-					</h1>
+					<h1 className={styles["headerTitle"]}>{headerText}</h1>
 					<div className={styles["inputForms"]}>
 						<div className={styles["inputGroup"]}>
 							<span className={styles["name"]}>{loginText}</span>
@@ -158,7 +147,23 @@ const LoginRegister = ({ type }) => {
 									width: "100%",
 								}}
 							/>
-							<div className={styles["icon"]} onClick={handleShowPasswordChange}>
+							<div
+								ref={showPasswordRef}
+								className={styles["icon"]}
+								onClick={handleShowPasswordChange}
+								onMouseEnter={() => {
+									showTooltip({
+										content: showPassword ? "Hide Password" : "Show Password",
+										elementRef: showPasswordRef,
+										placement: "top",
+									});
+								}}
+								onMouseLeave={() => {
+									hideTooltip({
+										elementRef: showPasswordRef,
+									});
+								}}
+							>
 								{showPassword ? <HiEye /> : <HiEyeOff />}
 							</div>
 						</div>

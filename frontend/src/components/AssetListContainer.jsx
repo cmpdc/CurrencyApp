@@ -1,7 +1,9 @@
+import { Input } from "@mui/joy";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { AppContext } from "../context/AppContext";
-import { useModal } from "../context/ModalContext";
+import { AppContext } from "../contexts/AppContext";
+import { useModal } from "../contexts/ModalContext";
+import { useTooltip } from "../contexts/TooltipContext";
 import styles from "../styles/AssetListContainer.module.scss";
 import { classNames } from "../utils/classNames";
 import { recentCounter } from "../utils/constants";
@@ -11,6 +13,7 @@ import AssetListInner from "./AssetListInner";
 const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilter, customTitle }) => {
 	const { data } = useContext(AppContext);
 	const { showModal } = useModal();
+	const { showTooltip, hideTooltip } = useTooltip();
 
 	const addItemButtonRef = useRef();
 
@@ -51,15 +54,26 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilte
 							className={styles["add-item-button"]}
 							ref={addItemButtonRef}
 							onClick={() => {
-								showModal(<AddItemForm />);
+								showModal({
+									content: <AddItemForm />,
+								});
 							}}
 							onMouseEnter={() => {
 								if (!addItemButtonRef.current) return;
+
+								showTooltip({
+									content: "Add Item",
+									elementRef: addItemButtonRef,
+								});
 
 								addItemButtonRef.current.classList.add(styles["add-item-button-hover"]);
 							}}
 							onMouseLeave={() => {
 								if (!addItemButtonRef.current) return;
+
+								hideTooltip({
+									elementRef: addItemButtonRef,
+								});
 
 								addItemButtonRef.current.classList.remove(styles["add-item-button-hover"]);
 							}}
@@ -68,7 +82,14 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilte
 						</div>
 
 						<div className={styles["searchBox"]}>
-							<input type="text" className={styles["form-control"]} placeholder="Type to search..." onChange={handleChange} />
+							<Input
+								type="text"
+								className={styles["form-control"]}
+								placeholder="Type to search..."
+								onChange={handleChange}
+								size="sm"
+								variant="outlined"
+							/>
 						</div>
 					</div>
 				)}

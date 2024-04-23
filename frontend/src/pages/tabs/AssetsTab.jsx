@@ -5,8 +5,8 @@ import { AssetHeader } from "../../components/AssetHeader";
 import AssetListContainer from "../../components/AssetListContainer";
 import { AssetListNoItem } from "../../components/AssetListNoItem";
 import AssetListSingle from "../../components/AssetListSingle";
-import { AppContext } from "../../context/AppContext";
-import { useModal } from "../../context/ModalContext";
+import { AppContext } from "../../contexts/AppContext";
+import { useModal } from "../../contexts/ModalContext";
 import styles from "../../styles/Dashboard.module.scss";
 import { classNames } from "../../utils/classNames";
 
@@ -79,7 +79,9 @@ export const AssetsTab = () => {
 							className={styles["add-item-button"]}
 							ref={addItemButtonRef}
 							onClick={() => {
-								showModal(<AddItemForm />);
+								showModal({
+									content: <AddItemForm />,
+								});
 							}}
 							onMouseEnter={(e) => {
 								if (!addItemButtonRef.current) return;

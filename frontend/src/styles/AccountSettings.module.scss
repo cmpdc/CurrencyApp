@@ -1,8 +1,12 @@
 @use "_variables"as v;
 @import "_mixins";
 
+.accountSettingsModal {
+    padding: 15px;
+}
+
 .accountSettings {
-    @include elemDimension(450px, 500px);
+    @include elemDimension(420px, 500px);
     position: relative;
     display: flex;
     flex-flow: column;
@@ -14,6 +18,7 @@
 
 .accountSettings-wrapper {
     min-width: 100%;
+    padding: 20px 25px;
     position: relative;
     display: flex;
     flex-flow: column;
@@ -81,7 +86,7 @@
 }
 
 .rowPadded .optionValue {
-    padding: 10px 15px;
+    padding: 15px;
 }
 
 .optionButtons {
