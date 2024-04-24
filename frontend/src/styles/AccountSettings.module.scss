@@ -6,7 +6,7 @@
 }
 
 .accountSettings {
-    @include elemDimension(420px, 500px);
+    @include elemDimension(580px, 500px);
     position: relative;
     display: flex;
     flex-flow: column;
@@ -14,6 +14,10 @@
     justify-content: flex-start;
     overflow-x: hidden;
     overflow-y: auto;
+
+    @include maxScreenSize(850px) {
+        width: 570px;
+    }
 }
 
 .accountSettings-wrapper {

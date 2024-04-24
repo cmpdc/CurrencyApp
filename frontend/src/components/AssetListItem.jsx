@@ -7,20 +7,24 @@ import { useTooltip } from "../contexts/TooltipContext";
 import styles from "../styles/AssetListItem.module.scss";
 import { classNames } from "../utils/classNames";
 import { formatAmount } from "../utils/formatAmount";
+import { getOrSetDefaultBaseCurrency } from "../utils/getOrSetDefaultBaseCurrency";
 import AddItemForm from "./AddItemForm";
 
 export const AssetListItem = ({ data, isShowRecent }) => {
+	const { id, name, date, amount, category, type } = data;
+
 	const { dispatch } = useContext(AppContext);
 	const { showModal } = useModal();
 	const { showTooltip, hideTooltip } = useTooltip();
-	const { id, name, date, amount, category, type } = data;
 	const navigate = useNavigate();
+
+	const baseCurrency = getOrSetDefaultBaseCurrency();
 
 	const timeRef = useRef();
 	const deleteButtonRef = useRef();
 	const editButtonRef = useRef();
 
-	const formattedCost = formatAmount(amount, type);
+	const formattedCost = formatAmount({ amount: amount, type: type, currency: baseCurrency });
 
 	const handleDeleteItem = () => {
 		dispatch({

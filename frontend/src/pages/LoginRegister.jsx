@@ -1,4 +1,5 @@
 import { Button, Input } from "@mui/joy";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
@@ -109,7 +110,12 @@ const LoginRegister = ({ type }) => {
 						<span>App</span>
 					</div>
 				</div>
-				<div className={styles["loginContainer"]} style={{ width: loginContainerWidth }}>
+				<motion.div
+					className={styles["loginContainer"]}
+					style={{ width: loginContainerWidth }}
+					animate={{ width: loginContainerWidth }}
+					transition={{ duration: 0.3 }}
+				>
 					<h1 className={styles["headerTitle"]}>{headerText}</h1>
 					<div className={styles["inputForms"]}>
 						<div className={styles["inputGroup"]}>
@@ -180,10 +186,10 @@ const LoginRegister = ({ type }) => {
 							style={{ marginLeft: "5px" }}
 							variant="outline"
 						>
-							<span ref={secondButtonTextRef} />
+							<span ref={secondButtonTextRef} style={{ userSelect: "none" }} />
 						</Button>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 		</div>
 	);

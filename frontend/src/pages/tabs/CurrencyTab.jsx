@@ -28,6 +28,7 @@ export const CurrencyTab = () => {
 				<CurrencySelectorForm
 					allowMultipleSelection={true}
 					initialCurrencies={initialCurrencies()}
+					closeOnSave
 					onSave={(selectedCurrencies) => {
 						localStorage.setItem(SELECTED_CURRENCIES_KEY, JSON.stringify(selectedCurrencies));
 

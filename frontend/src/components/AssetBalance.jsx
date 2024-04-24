@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import { classNames } from "../utils/classNames";
-import { numberLocalLocales, numberLocalOptionsObj } from "../utils/constants";
+import { formatAmount } from "../utils/formatAmount";
+import { getOrSetDefaultBaseCurrency } from "../utils/getOrSetDefaultBaseCurrency";
 
 const Balance = () => {
 	const { data } = useContext(AppContext);
@@ -11,6 +12,8 @@ const Balance = () => {
 	const total = totalIncome - totalExpenses;
 
 	const [isBelowZero, setBelowZero] = useState(total < 0);
+
+	const baseCurrency = getOrSetDefaultBaseCurrency();
 
 	useEffect(() => {
 		setBelowZero(total < 0);
@@ -24,7 +27,10 @@ const Balance = () => {
 					negative: isBelowZero,
 				})}
 			>
-				{Number(total).toLocaleString(numberLocalLocales, numberLocalOptionsObj)}
+				{formatAmount({
+					amount: total,
+					currency: baseCurrency,
+				})}
 			</div>
 			<b>Balance</b>{" "}
 		</>

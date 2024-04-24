@@ -159,8 +159,9 @@
 }
 
 .name {
-    width: 100px;
-    min-width: 90px;
+    --width: 100px;
+    width: var(--width);
+    min-width: var(--width);
     font-size: 18px;
     font-weight: 600;
     text-align: right;
@@ -194,6 +195,8 @@
 
 .icon {
     @include elemDimension(20px);
+    min-width: 20px;
+    margin: 0 5px 0 0;
     position: relative;
     display: flex;
     align-items: center;

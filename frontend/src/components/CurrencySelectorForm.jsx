@@ -15,6 +15,7 @@ export const CurrencySelectorForm = ({
 	headerTitle = "Selected Quote Currencies",
 	width = "400px",
 	height = "auto",
+	closeOnSave = false,
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [currencies, setCurrencies] = useState([]);
@@ -79,7 +80,9 @@ export const CurrencySelectorForm = ({
 			onSave(selectedCurrencies);
 		}
 
-		hideModal();
+		if (closeOnSave) {
+			hideModal();
+		}
 	};
 
 	const renderCurrencyAbbreviations = (currenciesList) => {

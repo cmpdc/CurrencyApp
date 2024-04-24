@@ -109,7 +109,7 @@ const AddItemForm = ({ props = null }) => {
 				<div className={styles["divide"]}>
 					<FormLabel htmlFor="type">Type</FormLabel>
 					<Select
-						required="required"
+						required={true}
 						className={styles["form-control"]}
 						id="type"
 						value={type}
@@ -129,7 +129,7 @@ const AddItemForm = ({ props = null }) => {
 				<div className={styles["divide"]}>
 					<FormLabel htmlFor="name">Name</FormLabel>
 					<Input
-						required="required"
+						required={true}
 						type="text"
 						className={classNames(styles["form-control"], {
 							[styles["form-control-disabled"]]: !type,
@@ -145,7 +145,7 @@ const AddItemForm = ({ props = null }) => {
 				<div className={styles["divide"]}>
 					<FormLabel htmlFor="amount">{type === "expense" ? "Cost" : "Amount"}</FormLabel>
 					<Input
-						required="required"
+						required={true}
 						className={classNames(styles["form-control"], {
 							[styles["form-control-disabled"]]: !type,
 						})}
