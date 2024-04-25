@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { AssetHeader } from "../../components/AssetHeader";
 import { CurrencyList } from "../../components/CurrencyList";
-import styles from "../../styles/Dashboard.module.scss";
+import currencyTabStyles from "../../styles/CurrencyTab.module.scss";
+import dashboardStyles from "../../styles/Dashboard.module.scss";
 import { classNames } from "../../utils/classNames";
 import { DEFAULT_BASE_CURRENCY, SELECTED_BASE_CURRENCY_KEY, STORAGE_UPDATE_KEY } from "../../utils/constants";
 
@@ -24,13 +25,21 @@ export const HomeTab = () => {
 
 	return (
 		<>
-			<section className={classNames(styles["container-section"])}>
+			<section className={classNames(dashboardStyles["container-section"])}>
 				<h1>Dashboard</h1>
 
 				<h3>My Assets</h3>
 				<AssetHeader />
 
-				<h3>Selected Quote Currencies</h3>
+				<div
+					ref={(node) => {
+						node?.style.setProperty("margin", "0", "important");
+					}}
+					className={currencyTabStyles["headerTitle"]}
+				>
+					<h3 className={currencyTabStyles["headerQuoteCurrency"]}>Selected Quote Currencies</h3>
+					<span className={currencyTabStyles["headerBaseCurrency"]}>1 USD</span>
+				</div>
 				<CurrencyList activeCurrency={baseCurrency} />
 			</section>
 		</>

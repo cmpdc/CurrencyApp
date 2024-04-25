@@ -185,10 +185,14 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 				mode: "index",
 				intersect: false,
 				displayColors: false,
+				padding: 12,
+				bodyAlign: "center",
+				titleFont: {
+					weight: "bolder",
+				},
 				callbacks: {
 					title: (tooltipItems) => {
 						const item = tooltipItems[0];
-
 						const date = new Date(item.label);
 
 						return date.toLocaleDateString(undefined, {
@@ -199,6 +203,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 					},
 					label: (context) => {
 						let label = "";
+						const currencyName = context.dataset.label.split(" ")[0];
 
 						if (context.parsed.y !== null) {
 							label += new Intl.NumberFormat("en-US", {
@@ -207,7 +212,7 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 							}).format(context.parsed.y);
 						}
 
-						label += ` ${baseCurrency}`;
+						label += ` ${currencyName}`;
 
 						return label;
 					},
@@ -223,7 +228,6 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 		scales: {
 			x: {
 				display: true,
-				grid: {},
 				ticks: {
 					display: false,
 					maxTicksLimit: maxYTicks,
@@ -233,6 +237,9 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 				display: true,
 				beginAtZero: false,
 				ticks: {
+					font: {
+						weight: "bolder",
+					},
 					callback: (value) => {
 						return value.toFixed(4);
 					},
@@ -245,8 +252,8 @@ export const CurrencyGraph = ({ currencies, baseCurrency, onCurrencyChange }) =>
 		<>
 			<div className={currencyTabStyles["currencyGraph"]} ref={graphContainerRef}>
 				<h3 className={currencyTabStyles["graphHeading"]}>
-					Currency Exchange (<span style={{ color: graphBorderColor }}>{activeCurrency}</span> to{" "}
-					<span style={{ color: graphBorderColor }}>{baseCurrency}</span>)
+					Currency Exchange (<span style={{ color: graphBorderColor }}>{baseCurrency}</span> to{" "}
+					<span style={{ color: graphBorderColor }}>{activeCurrency}</span>)
 				</h3>
 				<div className={currencyTabStyles["currencyGraphContainer"]}>
 					{!isLoading ? (

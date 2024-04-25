@@ -51,7 +51,15 @@ export const CurrencyTab = () => {
 				<h1>Currency</h1>
 				<CurrencyGraph currencies={initialCurrencies()} baseCurrency={baseCurrency} onCurrencyChange={handleCurrencyChange} />
 				<div className={currencyTabStyles["gapFromGraph"]}>
-					<h3 className={currencyTabStyles["headerTitle"]}>Selected Quote Currencies</h3>
+					<div
+						ref={(node) => {
+							node?.style.setProperty("margin", "0", "important");
+						}}
+						className={currencyTabStyles["headerTitle"]}
+					>
+						<h3 className={currencyTabStyles["headerQuoteCurrency"]}>Selected Quote Currencies</h3>
+						<span className={currencyTabStyles["headerBaseCurrency"]}>1 USD</span>
+					</div>
 					<CurrencyList allowSelection={true} activeCurrency={activeCurrency} />
 				</div>
 				<div className={dashboardStyles["buttonContainer"]}>

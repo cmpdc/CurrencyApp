@@ -183,9 +183,22 @@
     .gapFromGraph {
         position: relative;
     }
+}
 
-    .headerTitle {
-        margin: 0 0 1em 0 !important;
+.headerTitle {
+    height: 50px;
+    margin: 0 0 1em 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .headerQuoteCurrency {
+        margin: 0px !important;
+    }
+
+    .headerBaseCurrency {
+        font-weight: 700;
+        margin: 0 20px 0 0;
     }
 }
 

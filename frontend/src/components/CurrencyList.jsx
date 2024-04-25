@@ -71,7 +71,6 @@ export const CurrencyList = ({ allowSelection = false, activeCurrency }) => {
 						{exchangeRates[currency] ? (
 							<>
 								<span className={currencyStyles["valueNum"]}>{exchangeRates[currency].toFixed(4)}</span>
-								<span className={currencyStyles["valueCurrency"]}>{baseCurrency}</span>
 							</>
 						) : (
 							"Loading..."
