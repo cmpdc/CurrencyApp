@@ -159,7 +159,7 @@
 }
 
 .name {
-    --width: 100px;
+    --width: 90px;
     width: var(--width);
     min-width: var(--width);
     font-size: 18px;
@@ -254,8 +254,23 @@
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
+    position: relative;
 
     &:hover {
-        text-decoration: underline;
+        &:after {
+            opacity: 1;
+        }
+    }
+
+    &:after {
+        --width: 20px;
+        content: "";
+        @include elemDimension(calc(100% - var(--width) - 10px), 1px);
+        background-color: currentColor;
+        position: absolute;
+        inset: auto auto 5px calc((var(--width) / 2) + 5px);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 100ms linear;
     }
 }

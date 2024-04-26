@@ -58,7 +58,7 @@ export const CurrencyTab = () => {
 						className={currencyTabStyles["headerTitle"]}
 					>
 						<h3 className={currencyTabStyles["headerQuoteCurrency"]}>Selected Quote Currencies</h3>
-						<span className={currencyTabStyles["headerBaseCurrency"]}>1 USD</span>
+						<span className={currencyTabStyles["headerBaseCurrency"]}>1 {baseCurrency}</span>
 					</div>
 					<CurrencyList allowSelection={true} activeCurrency={activeCurrency} />
 				</div>

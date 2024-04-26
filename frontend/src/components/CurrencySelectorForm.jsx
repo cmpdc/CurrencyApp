@@ -10,12 +10,15 @@ import { currencyFullNames } from "../utils/currencyNames";
 
 export const CurrencySelectorForm = ({
 	onSave,
+	onCurrencyChange,
 	initialCurrencies,
 	allowMultipleSelection = false,
 	headerTitle = "Selected Quote Currencies",
 	width = "400px",
 	height = "auto",
 	closeOnSave = false,
+	showSaveButton = false,
+	disabled = false,
 }) => {
 	const [loading, setLoading] = useState(false);
 	const [currencies, setCurrencies] = useState([]);
@@ -60,6 +63,10 @@ export const CurrencySelectorForm = ({
 
 		setSelectedCurrencies(newValue);
 		setSelectionOpen(!selectionOpen);
+
+		if (onCurrencyChange) {
+			onCurrencyChange(newValue);
+		}
 	};
 
 	const handleRemoveSelectedCurrency = (event, currencyToRemove) => {
@@ -138,6 +145,7 @@ export const CurrencySelectorForm = ({
 		<div
 			className={classNames(styles["currencySelectorContainer"], {
 				[styles["multiple"]]: allowMultipleSelection,
+				[styles["disabled"]]: disabled,
 			})}
 			style={{
 				width: width,
@@ -161,7 +169,9 @@ export const CurrencySelectorForm = ({
 							}}
 							listboxOpen={selectionOpen}
 							defaultListboxOpen={false}
-							style={{ width: "100%" }}
+							style={{ width: "100%", height: "38px" }}
+							disabled={disabled}
+							size="md"
 						>
 							{currencies.map((currency) => {
 								return (
@@ -177,11 +187,13 @@ export const CurrencySelectorForm = ({
 							<span>You can only select up to {MAX_CURRENCIES_NUM} currencies</span>
 						)}
 					</div>
-					<div className={styles["buttonContainer"]}>
-						<Button onClick={handleSave} disabled={selectedCurrencies.length > MAX_CURRENCIES_NUM} size="sm" variant="solid">
-							Save
-						</Button>
-					</div>
+					{showSaveButton && (
+						<div className={styles["buttonContainer"]}>
+							<Button onClick={handleSave} disabled={selectedCurrencies.length > MAX_CURRENCIES_NUM} size="sm" variant="solid">
+								Save
+							</Button>
+						</div>
+					)}
 				</>
 			)}
 		</div>

@@ -1,0 +1,95 @@
+@import "_mixins";
+
+.header-item {
+    width: 100%;
+    margin: 0 !important;
+    position: relative;
+}
+
+.header-item-inner {
+    font-size: 25px;
+    font-weight: 700;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    @include maxScreenSize(1200px) {
+        flex-flow: column;
+        gap: 20px !important;
+    }
+
+    @include maxScreenSize(1320px) {
+        gap: 5px;
+    }
+}
+
+.left {
+    --width: 140px;
+    min-width: var(--width);
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 100ms linear;
+    cursor: pointer;
+
+    @include maxScreenSize(1200px) {
+        --width: calc(100% - 100px);
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.middle {
+    --border: 1px solid rgba(0, 0, 0, 0.3);
+    --width: 2px;
+    --height: 70px;
+    min-width: var(--width);
+    max-width: var(--width);
+    height: var(--height);
+    border-right: var(--border);
+    position: relative;
+
+    @include maxScreenSize(1200px) {
+        --height: 2px;
+        --width: calc(100% - 100px);
+        border-right: 0 !important;
+        border-bottom: var(--border);
+    }
+
+}
+
+.right {
+    padding: 10px;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    b {
+        text-transform: unset;
+    }
+
+    .sortedList {
+        position: relative;
+
+        li {
+            font-size: 16px;
+            display: flex;
+            flex-flow: row;
+            gap: 5px;
+        }
+    }
+}

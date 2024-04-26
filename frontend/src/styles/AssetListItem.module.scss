@@ -66,6 +66,10 @@
 .first-item {
     --width: 30%;
     justify-content: flex-start;
+
+    @include maxScreenSize(600px) {
+        --width: 120px;
+    }
 }
 
 .second-item,
@@ -77,21 +81,49 @@
 .second-item {
     --width: 180px;
     justify-content: flex-start !important;
+
+    @include maxScreenSize(600px) {
+        --width: 120px;
+    }
 }
 
 .third-item {
     --width: 150px;
+
+    @include maxScreenSize(1250px) {
+        --width: 100px;
+    }
+
+    @include maxScreenSize(600px) {
+        display: none !important;
+    }
 }
 
 .fourth-item {
-    --width: 200px;
+    --width: 150px;
     padding: 5px;
     justify-content: center !important;
+
+    @include maxScreenSize(800px) {
+        display: none !important;
+    }
 }
 
 .fifth-item {
     --width: 100px;
-    justify-content: flex-end !important;
+    justify-content: center !important;
+
+    @include maxScreenSize(1100px) {
+        display: none !important;
+    }
+}
+
+.clickable-item {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .list-item {
@@ -180,6 +212,49 @@
     &:hover {
         svg {
             transform: scale(0.9);
+        }
+    }
+}
+
+.viewModal {
+    @include elemDimension(400px, 370px);
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+
+    .view-item {
+        min-width: 100%;
+        display: flex;
+        flex-flow: row;
+        align-items: flex-start;
+        gap: 15px;
+
+        >* {
+            padding: 10px;
+            flex: 1;
+
+            &:first-child {
+                --width: 40%;
+                min-width: var(--width);
+                max-width: var(--width);
+                font-weight: 500;
+                text-align: end;
+
+                &[type="button"] {
+                    --width: 80px !important;
+                    height: 20px;
+                }
+
+                &:only-child {
+                    --width: 100%;
+                    text-align: center;
+                }
+            }
+
         }
     }
 }

@@ -9,6 +9,15 @@
     justify-content: flex-start;
     gap: 20px;
 
+    &.disabled {
+        position: relative;
+
+        *[class^="MuiSelect"] {
+            color: var(--variant-outlinedDisabledColor, var(--joy-palette-neutral-outlinedDisabledColor, var(--joy-palette-neutral-400, #9FA6AD))) !important;
+            background-color: #e9ecef;
+        }
+    }
+
     >* {
         width: 100%;
         flex: 1;
@@ -186,7 +195,8 @@
 }
 
 .headerTitle {
-    height: 50px;
+    min-height: 50px;
+    max-height: 80px;
     margin: 0 0 1em 0 !important;
     display: flex;
     align-items: center;
@@ -194,6 +204,11 @@
 
     .headerQuoteCurrency {
         margin: 0px !important;
+
+        @include maxScreenSize(600px) {
+            width: 250px;
+            margin: 1em 0 !important;
+        }
     }
 
     .headerBaseCurrency {

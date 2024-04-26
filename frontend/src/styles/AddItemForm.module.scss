@@ -41,6 +41,10 @@ $smallWindowSize: 780px;
             flex-flow: row;
         }
     }
+
+    .calendar-input {
+        position: relative !important;
+    }
 }
 
 .divide {
@@ -48,7 +52,10 @@ $smallWindowSize: 780px;
     flex: 1;
     display: flex;
     flex-flow: column;
-    gap: 5px;
+
+    label {
+        margin-bottom: 5px;
+    }
 }
 
 .form-control {

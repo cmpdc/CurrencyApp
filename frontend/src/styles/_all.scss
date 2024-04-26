@@ -41,10 +41,10 @@ body {
     }
 }
 
-body:has(#modal) {
-    overflow: hidden;
+// body:has(#modal) {
+    //     overflow: hidden;
 
-}
+    // }
 
 h1,
 h2,
@@ -91,4 +91,46 @@ ul {
     position: relative;
     display: flex;
     flex-flow: row;
+}
+
+.react-datepicker {
+    position: relative;
+
+    .react-datepicker__input-time-container {
+        height: 35px;
+        padding: 10px;
+        margin: 0;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .react-datepicker-time__caption {
+        display: none;
+    }
+
+    .react-datepicker-time__input-container {
+        flex: 1;
+        display: flex;
+
+        .react-datepicker-time__input {
+            width: 100% !important;
+            border: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            >* {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.react-datepicker__tab-loop {
+    display: flex;
 }

@@ -38,7 +38,7 @@ export const HomeTab = () => {
 					className={currencyTabStyles["headerTitle"]}
 				>
 					<h3 className={currencyTabStyles["headerQuoteCurrency"]}>Selected Quote Currencies</h3>
-					<span className={currencyTabStyles["headerBaseCurrency"]}>1 USD</span>
+					<span className={currencyTabStyles["headerBaseCurrency"]}>1 {baseCurrency}</span>
 				</div>
 				<CurrencyList activeCurrency={baseCurrency} />
 			</section>

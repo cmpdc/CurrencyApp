@@ -38,6 +38,7 @@ const initialState = {
 			name: "Sanderson Factory",
 			category: "Hustle",
 			amount: 1200,
+			currency: "USD",
 			type: "income",
 		},
 		{
@@ -46,6 +47,7 @@ const initialState = {
 			name: "Shopping",
 			category: "",
 			amount: 50,
+			currency: "USD",
 			type: "expense",
 		},
 		{
@@ -54,6 +56,7 @@ const initialState = {
 			name: "Holiday",
 			category: "",
 			amount: 300,
+			currency: "USD",
 			type: "expense",
 		},
 		{
@@ -62,6 +65,7 @@ const initialState = {
 			name: "Side Hustle",
 			category: "",
 			amount: 120,
+			currency: "USD",
 			type: "income",
 		},
 		{
@@ -70,6 +74,7 @@ const initialState = {
 			name: "Transportation",
 			category: "",
 			amount: 70,
+			currency: "USD",
 			type: "expense",
 		},
 		{
@@ -78,6 +83,7 @@ const initialState = {
 			name: "Fuel",
 			category: "",
 			amount: 40,
+			currency: "USD",
 			type: "expense",
 		},
 		{
@@ -86,6 +92,7 @@ const initialState = {
 			name: "Child Care",
 			category: "Baby",
 			amount: 500,
+			currency: "USD",
 			type: "expense",
 		},
 	],

@@ -2,12 +2,15 @@ import { Button, FormLabel, Input, Option, Select } from "@mui/joy";
 import { forwardRef, useContext, useEffect, useState } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaCalendarDay } from "react-icons/fa";
 import { NumericFormat } from "react-number-format";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../contexts/AppContext";
 import { useModal } from "../contexts/ModalContext";
 import styles from "../styles/AddItemForm.module.scss";
 import { classNames } from "../utils/classNames";
+import { DEFAULT_BASE_CURRENCY, SELECTED_BASE_CURRENCY_KEY } from "../utils/constants";
+import { CurrencySelectorForm } from "./CurrencySelectorForm";
 
 const NumericFormatAdapter = forwardRef(function NumericFormatAdapter(props, ref) {
 	const { onChange, ...other } = props;
@@ -41,16 +44,21 @@ const AddItemForm = ({ props = null }) => {
 	const [id, setId] = useState(null);
 	const [date, setDate] = useState(new Date());
 
+	const [selectedBaseCurrency, setSelectedBaseCurrency] = useState(() => {
+		return JSON.parse(localStorage.getItem(SELECTED_BASE_CURRENCY_KEY)) || DEFAULT_BASE_CURRENCY;
+	});
+
 	useEffect(() => {
 		if (props) {
 			setName(props.name);
 			setType(props.type);
 			setAmount(props.amount);
+			setSelectedBaseCurrency(props.currency);
 			setCategory(props.category);
 			setId(props.id);
 			setDate(new Date(props.date));
 		}
-	}, [props]);
+	}, [props, setSelectedBaseCurrency]);
 
 	const onSubmit = (event) => {
 		event.preventDefault();
@@ -61,6 +69,7 @@ const AddItemForm = ({ props = null }) => {
 			name,
 			type,
 			amount: parseInt(amount),
+			currency: Array.isArray(selectedBaseCurrency) ? selectedBaseCurrency[0] : selectedBaseCurrency,
 			category,
 			date: date.toISOString(),
 		};
@@ -101,9 +110,12 @@ const AddItemForm = ({ props = null }) => {
 					<ReactDatePicker
 						selected={date}
 						onChange={(date) => setDate(date)}
-						dateFormat="MMMM d, yyyy"
-						className={styles["form-control"]}
-						showTimeSelect
+						dateFormat="MMMM d, yyyy h:mm aa"
+						className={styles["calendar-input"]}
+						customInput={<Input required={true} className={styles["form-control"]} />}
+						icon={<FaCalendarDay color="#000000" style={{ zIndex: 999 }} />}
+						showIcon
+						showTimeInput
 					/>
 				</div>
 				<div className={styles["divide"]}>
@@ -157,6 +169,23 @@ const AddItemForm = ({ props = null }) => {
 							input: {
 								component: NumericFormatAdapter,
 							},
+						}}
+					/>
+				</div>
+				<div className={styles["divide"]}>
+					<FormLabel htmlFor="currency">Currency</FormLabel>
+					<CurrencySelectorForm
+						headerTitle={null}
+						width={null}
+						height={"38px"}
+						allowMultipleSelection={false}
+						initialCurrencies={selectedBaseCurrency}
+						disabled={!type}
+						onSave={null}
+						onCurrencyChange={(newBaseCurrency) => {
+							setSelectedBaseCurrency(() => {
+								return newBaseCurrency;
+							});
 						}}
 					/>
 				</div>

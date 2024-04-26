@@ -21,6 +21,7 @@ const AssetListInner = ({ assets, isShowRecent, type }) => {
 					<div className={classNames(stylesListItem["fourth-item"], stylesListItem["list-item"])}>
 						{type === "expense" ? "Cost" : type === "income" ? "Amount" : "Amount/Cost"}
 					</div>
+					<div className={classNames(stylesListItem["fifth-item"], stylesListItem["list-item"])}>Currency</div>
 					{showFifthItem && <div className={classNames(stylesListItem["fifth-item"], stylesListItem["list-item"])}></div>}
 				</li>
 			</>
