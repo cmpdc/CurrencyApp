@@ -113,7 +113,7 @@ const AddItemForm = ({ props = null }) => {
 						dateFormat="MMMM d, yyyy h:mm aa"
 						className={styles["calendar-input"]}
 						customInput={<Input required={true} className={styles["form-control"]} />}
-						icon={<FaCalendarDay color="#000000" style={{ zIndex: 999 }} />}
+						icon={<FaCalendarDay color="#000000" style={{ zIndex: 999 }} className={styles["calendar-button-icon"]} />}
 						showIcon
 						showTimeInput
 					/>

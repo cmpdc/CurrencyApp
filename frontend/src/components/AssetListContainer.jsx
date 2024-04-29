@@ -31,8 +31,8 @@ const AssetListContainer = ({ type, isShowRecent, showTitle = false, customFilte
 	const [displayItems, setDisplayItems] = useState(filteredItems);
 
 	useEffect(() => {
-		setDisplayItems(type !== "all" && isShowRecent ? filteredItems.slice(-recentCounter) : filteredItems);
-	}, [data, isShowRecent, type, filteredItems]);
+		setDisplayItems(type !== "all" && isShowRecent ? filteredItems.slice(0, recentCounter) : filteredItems);
+	}, [data, isShowRecent, type, filteredItems, recentCounter]);
 
 	const handleChange = (event) => {
 		const searchResults = filteredItems.filter((item) => item.name.toLowerCase().includes(event.target.value.toLowerCase()));

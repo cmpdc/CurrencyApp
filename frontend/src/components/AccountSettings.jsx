@@ -179,6 +179,7 @@ export const AccountSettings = () => {
 								headerTitle={null}
 								width={null}
 								height={null}
+								showSaveButton
 							/>
 						</div>
 					</div>
@@ -196,6 +197,7 @@ export const AccountSettings = () => {
 								headerTitle={null}
 								width={null}
 								height={null}
+								showSaveButton
 							/>
 						</div>
 					</div>

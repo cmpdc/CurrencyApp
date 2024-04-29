@@ -83,6 +83,8 @@ const LoginRegister = ({ type }) => {
 
 	const handleSecondButtonClick = () => {
 		navigate(type === "login" ? "/register" : "/login");
+		setUsername("");
+		setPassword("");
 	};
 
 	const handleUsernameChange = (e) => {

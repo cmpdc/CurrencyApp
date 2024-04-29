@@ -102,6 +102,13 @@ $smallWindowSize: 780px;
 
 }
 
+.calendar-button-icon {
+    padding: 0 !important;
+    position: absolute;
+    inset: 50% auto auto 10px;
+    transform: translate(0, -50%);
+}
+
 .button {
     @extend %button;
 }
